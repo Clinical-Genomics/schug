@@ -1,5 +1,8 @@
 from typing import TYPE_CHECKING, List, Optional
 
+from pydantic import BaseModel
+from pydantic import Field as PydanticField
+from pydantic import validator
 from sqlmodel import Field, Relationship, SQLModel
 
 from .link_tables import ExonTranscriptLink
@@ -29,3 +32,29 @@ class Transcript(TranscriptBase, table=True):
 
 class TranscriptRead(TranscriptBase):
     id: int
+
+
+class TranscriptReadComplete(TranscriptBase):
+    id: int
+
+    exons: List["ExonRead"]
+
+
+class EnsemblTranscript(BaseModel):
+    chromosome: str = PydanticField(..., alias="Chromosome/scaffold name")
+    gene_id: str = PydanticField(..., alias="Gene stable ID")
+    transcript_id: str = PydanticField(..., alias="Transcript stable ID")
+    start: int = PydanticField(..., alias="Transcript start (bp)")
+    end: int = PydanticField(..., alias="Transcript end (bp)")
+    refseq_mrna: str = PydanticField(None, alias="RefSeq mRNA ID")
+    refseq_mrna_predicted: str = PydanticField(None, alias="RefSeq mRNA predicted ID")
+    refseq_ncrna_predicted: str = PydanticField(None, alias="RefSeq ncRNA ID")
+    refseq_id: str = None
+
+    @validator("refseq_id", always=True)
+    def set_refseq_id(cls, _, values: dict) -> Optional[str]:
+        order: List[str] = ["refseq_mrna", "refseq_mrna_predicted", "refseq_ncrna_predicted"]
+        for keyword in order:
+            if values[keyword]:
+                return values[keyword]
+        return None

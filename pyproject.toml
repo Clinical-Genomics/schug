@@ -5,11 +5,15 @@ description = "Keep track of genes, transcripts and exons from different sources
 authors = ["moonso <mans.magnusson@scilifelab.se>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+schug = "schug.cli.base:cli"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 sqlmodel = "^0.0.4"
 fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
+typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

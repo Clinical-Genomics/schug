@@ -1,13 +1,11 @@
-from typing import List
+from fastapi import FastAPI, status
 
-from fastapi import Depends, FastAPI, Query, status
-from sqlmodel import Session, select
-
-from .database import create_db_and_tables, get_session
-from .endpoints import genes
-from .models import Exon, ExonRead, Transcript, TranscriptRead
+from .database import create_db_and_tables
+from .endpoints import exons, genes, transcripts
 
 app = FastAPI()
+
+### REST API
 
 
 @app.get("/")
@@ -23,26 +21,19 @@ app.include_router(
 )
 
 
-@app.get("/exons/", response_model=List[ExonRead])
-def read_exons(
-    *,
-    session: Session = Depends(get_session),
-    offset: int = 0,
-    limit: int = Query(default=100, lte=100),
-):
-    exons = session.exec(select(Exon).offset(offset).limit(limit)).all()
-    return exons
+app.include_router(
+    transcripts.router,
+    prefix="/transcripts",
+    tags=["transcripts"],
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
+)
 
-
-@app.get("/transcripts/", response_model=List[TranscriptRead])
-def read_transcripts(
-    *,
-    session: Session = Depends(get_session),
-    offset: int = 0,
-    limit: int = Query(default=100, lte=100),
-):
-    transcripts = session.exec(select(Transcript).offset(offset).limit(limit)).all()
-    return transcripts
+app.include_router(
+    exons.router,
+    prefix="/exons",
+    tags=["exons"],
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
+)
 
 
 @app.on_event("startup")

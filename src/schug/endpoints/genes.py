@@ -1,10 +1,10 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from schug.database import get_session
+from schug.models import Gene, GeneRead
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select
-from src.schug.database import get_session
-from src.schug.models import Gene, GeneRead
 
 router = APIRouter()
 
