@@ -8,11 +8,13 @@ information. There is a [REST API][rest-api] with relevant endpoints.
 Make sure [poetry][poetry] is installed
 
 ```
-git clone 
+git clone https://github.com/Clinical-Genomics/schug
 cd schug
 poetry install
+schug setup --demo
 schug serve --reload
 ```
+Go to `http://localhost:8000/docs` and check out the API.
 
 ## What is left to do?
 

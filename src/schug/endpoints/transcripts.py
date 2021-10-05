@@ -3,6 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from schug.database import get_session
 from schug.models import Transcript, TranscriptRead
+from schug.models.transcript import TranscriptReadWithExons
 from sqlmodel import Session, select
 
 router = APIRouter()
@@ -19,7 +20,7 @@ def read_transcripts(
     return transcripts
 
 
-@router.get("/{db_id}", response_model=TranscriptRead)
+@router.get("/{db_id}", response_model=TranscriptReadWithExons)
 def read_transcript_db_id(
     *,
     db_id: int,

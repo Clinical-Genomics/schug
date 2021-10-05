@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, List, Optional
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
 from pydantic import validator
+from schug.models.exon import ExonRead
 from sqlmodel import Field, Relationship, SQLModel
 
 from .link_tables import ExonTranscriptLink
@@ -19,6 +20,7 @@ class TranscriptBase(SQLModel):
     transcript_name: str
     is_primary: bool = False
     is_canonical: bool = False
+    refseq_id: Optional[str]
 
     gene_id: Optional[int] = Field(default=None, foreign_key="gene.id")
 
@@ -34,10 +36,10 @@ class TranscriptRead(TranscriptBase):
     id: int
 
 
-class TranscriptReadComplete(TranscriptBase):
+class TranscriptReadWithExons(TranscriptRead):
     id: int
 
-    exons: List["ExonRead"]
+    exons: List[ExonRead] = []
 
 
 class EnsemblTranscript(BaseModel):

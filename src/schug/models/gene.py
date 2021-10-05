@@ -15,6 +15,7 @@ class GeneBase(SQLModel):
     end: int
     hgnc_id: int
     primary_symbol: str
+    ensembl_id: str
 
 
 class Gene(GeneBase, table=True):
