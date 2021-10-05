@@ -1,0 +1,15 @@
+site_name: Schug
+site_description: Keep track of genes, transcripts and exons from different sources
+
+theme:
+  name: material
+
+repo_name: clinicalgenomics/schug
+repo_url: https://github.com/Clinical-Genomics/schug
+
+plugins:
+  - search
+
+nav:
+  - Schug: index.md
+  - Linking: structure.md

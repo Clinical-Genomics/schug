@@ -44,8 +44,8 @@ class TranscriptReadWithExons(TranscriptRead):
 
 class EnsemblTranscript(BaseModel):
     chromosome: str = PydanticField(..., alias="Chromosome/scaffold name")
-    gene_id: str = PydanticField(..., alias="Gene stable ID")
-    transcript_id: str = PydanticField(..., alias="Transcript stable ID")
+    ensembl_gene_id: str = PydanticField(..., alias="Gene stable ID")
+    ensembl_transcript_id: str = PydanticField(..., alias="Transcript stable ID")
     start: int = PydanticField(..., alias="Transcript start (bp)")
     end: int = PydanticField(..., alias="Transcript end (bp)")
     refseq_mrna: str = PydanticField(None, alias="RefSeq mRNA ID")
