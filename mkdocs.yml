@@ -3,6 +3,10 @@ site_description: Keep track of genes, transcripts and exons from different sour
 
 theme:
   name: material
+  favicon: img/favicon.png
+  palette:
+    scheme: slate
+    primary: light green
 
 repo_name: clinicalgenomics/schug
 repo_url: https://github.com/Clinical-Genomics/schug

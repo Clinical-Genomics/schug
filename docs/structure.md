@@ -2,6 +2,7 @@
 
 In short the order of reliability is the following:
 
+
 1. HGNC
 2. Ensembl
 3. The rest
@@ -31,6 +32,8 @@ The primary transcript is decided by hgnc and is expressed in NM-form
 
 ## Transcript identifiers
 
+Transcripts, just like genes, have different nomenclatures. We use the ensembl version to describe location of the 
+transcripts. For naming schug will use the refseq nomenclature first hand. This is the naming starting with `NM`. 
 
 
 [hgnc]: https://www.genenames.org

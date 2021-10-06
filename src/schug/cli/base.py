@@ -1,6 +1,6 @@
 import typer
 import uvicorn
-from schug.cli import load
+from schug.cli import fetch, load
 from schug.config import settings
 from schug.database import create_db_and_tables
 from schug.load.demo import load_demo
@@ -16,6 +16,7 @@ def callback():
 
 
 cli.add_typer(load.app, name="load", help="Load information")
+cli.add_typer(fetch.app, name="fetch", help="Fetch data from sources")
 
 
 @cli.command("serve")
