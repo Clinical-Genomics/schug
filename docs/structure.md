@@ -18,6 +18,18 @@ Mapping from Ensembl Gene ID (ENSG) to HGNC ID is done by Ensembl.
 
 ## Genes to transcripts
 
+Genes are linked to transcripts in Ensembl, Shoug only consider ensembl transcripts
+
+## Transcripts and exons
+
+Transcript and exon definitions are taken from Ensembl only, also the linking between transcripts and exons are 
+done by ensembl.
+
+## Primary transcript
+
+The primary transcript is decided by hgnc and is expressed in NM-form
+
+## Transcript identifiers
 
 
 
