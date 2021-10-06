@@ -138,16 +138,21 @@ class EnsemblBiomartClient:
             raise ex
 
     def __iter__(self):
+        return self
+
+    def __next__(self):
         success = False
         if self.header:
-            yield self.xml_creator.create_header(self.attributes)
+            self.header = False
+            return self.xml_creator.create_header(self.attributes)
 
-        for line in self.query:
-            if line.startswith("["):
-                if "success" in line:
-                    success = True
-                if not success:
-                    raise SyntaxError("ensembl request is incomplete")
-                LOG.info("successfully retrieved all data from ensembl")
-                continue
-            yield line
+        line = next(self.query)
+        if line.startswith("["):
+            if "success" in line:
+                success = True
+            if not success:
+                raise SyntaxError("ensembl request is incomplete")
+            raise StopIteration
+        if not line:
+            raise StopIteration
+        return line

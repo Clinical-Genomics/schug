@@ -3,6 +3,11 @@ from typing import List
 
 import typer
 from pydantic import parse_obj_as
+from schug.load.ensemble import (
+    fetch_ensembl_exon_lines,
+    fetch_ensembl_genes,
+    fetch_ensembl_transcripts,
+)
 from schug.models.exon import EnsemblExon
 from schug.models.gene import EnsemblGene
 from schug.models.transcript import EnsemblTranscript
@@ -11,16 +16,20 @@ app = typer.Typer()
 
 
 @app.command()
-def exons(exons_file: typer.FileText = typer.Option(None, "--infile", "-i")):
+def exons(
+    exons_file: typer.FileText = typer.Option(None, "--infile", "-i"),
+    build: str = typer.Option("37", "-b", "--build"),
+):
     """Load exon data"""
     typer.echo("Loading exons")
-
+    if not exons_file:
+        exons_file = fetch_ensembl_exon_lines(build=build, chromosomes=["Y"])
     parsed_exons = parse_obj_as(
         List[EnsemblExon],
         [parsed_line for parsed_line in csv.DictReader(exons_file, delimiter="\t")],
     )
     for i, exon in enumerate(parsed_exons):
-        if i == 5:
+        if i > 10:
             break
         typer.echo(exon)
 
@@ -29,7 +38,8 @@ def exons(exons_file: typer.FileText = typer.Option(None, "--infile", "-i")):
 def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile", "-i")):
     """Load transcript data"""
     typer.echo("Loading transcripts")
-
+    if not transcripts_file:
+        transcripts_file = fetch_ensembl_transcripts(build="37", chromosomes=["Y"])
     parsed_transcripts = parse_obj_as(
         List[EnsemblTranscript],
         [parsed_line for parsed_line in csv.DictReader(transcripts_file, delimiter="\t")],
@@ -44,6 +54,8 @@ def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile"
 def genes(ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i")):
     """Load transcript data"""
     typer.echo("Loading genes")
+    if not ensembl_file:
+        ensembl_file = fetch_ensembl_genes(build="37", chromosomes=["Y"])
 
     parsed_genes = parse_obj_as(
         List[EnsemblGene],

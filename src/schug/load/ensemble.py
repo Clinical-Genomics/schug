@@ -1,7 +1,10 @@
+import csv
 import logging
 from typing import List, Optional
 
+from pydantic import parse_obj_as
 from schug.load.biomart import EnsemblBiomartClient
+from schug.models.exon import EnsemblExon
 
 LOG = logging.getLogger(__name__)
 
@@ -74,7 +77,7 @@ def fetch_ensembl_transcripts(
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
 
 
-def fetch_ensembl_exons(
+def fetch_ensembl_exon_lines(
     build: str, chromosomes: Optional[List[str]] = None
 ) -> EnsemblBiomartClient:
     """Fetch the ensembl exons"""
@@ -99,3 +102,15 @@ def fetch_ensembl_exons(
     filters = {"chromosome_name": chromosomes}
 
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
+
+
+def fetch_ensembl_exons(build: str, chromosomes: Optional[list[str]] = None) -> list[EnsemblExon]:
+    """Fetch ensembl exon objects"""
+    exon_lines: EnsemblBiomartClient = fetch_ensembl_exon_lines(
+        build=build, chromosomes=chromosomes
+    )
+
+    parsed_exons = parse_obj_as(
+        List[EnsemblExon], [exon_info for exon_info in csv.DictReader(exon_lines, delimiter="\t")]
+    )
+    return parsed_exons

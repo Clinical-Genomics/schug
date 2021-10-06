@@ -37,8 +37,14 @@ class EnsemblGene(BaseModel):
     gene_id: str = PydanticField(..., alias="Gene stable ID")
     start: int = PydanticField(..., alias="Gene start (bp)")
     end: int = PydanticField(..., alias="Gene end (bp)")
-    hgnc_symbol: str = PydanticField(None, alias="HGNC symbol")
-    hgnc_id: int = PydanticField(None, alias="HGNC ID")
+    hgnc_symbol: Optional[str] = PydanticField(None, alias="HGNC symbol")
+    hgnc_id: Optional[int] = PydanticField(None, alias="HGNC ID")
+
+    @validator("*", pre=True)
+    def convert_to_none(cls, v):
+        if v == "":
+            return None
+        return v
 
 
 class HgncGene(BaseModel):

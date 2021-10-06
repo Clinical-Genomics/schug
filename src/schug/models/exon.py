@@ -34,7 +34,7 @@ class EnsemblExon(BaseModel):
     chromosome: str = PydanticField(..., alias="Chromosome/scaffold name")
     gene_id: str = PydanticField(..., alias="Gene stable ID")
     transcript_id: str = PydanticField(..., alias="Transcript stable ID")
-    exon_id: str = PydanticField(..., alias="Exon stable ID")
+    exon_name: str = PydanticField(..., alias="Exon stable ID")
     start: int = PydanticField(..., alias="Exon region start (bp)")
     end: int = PydanticField(..., alias="Exon region end (bp)")
     strand: int = PydanticField(..., alias="Strand")

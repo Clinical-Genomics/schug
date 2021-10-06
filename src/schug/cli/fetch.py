@@ -2,7 +2,12 @@ import logging
 
 import typer
 from schug.load.biomart import EnsemblBiomartClient
-from schug.load.ensemble import fetch_ensembl_exons, fetch_ensembl_genes, fetch_ensembl_transcripts
+from schug.load.ensemble import (
+    fetch_ensembl_exon_lines,
+    fetch_ensembl_exons,
+    fetch_ensembl_genes,
+    fetch_ensembl_transcripts,
+)
 from schug.load.gene_resources import (
     fetch_exac_constraint,
     fetch_genes_to_hpo_to_disease,
@@ -33,7 +38,7 @@ def ensembl_transcripts(build: str = typer.Option("37", "-b", "--build")):
 @app.command()
 def ensembl_exons(build: str = typer.Option("37", "-b", "--build")):
     """Fetch genes from ensembl"""
-    ensembl_client: EnsemblBiomartClient = fetch_ensembl_exons(build=build, chromosomes=["Y"])
+    ensembl_client: EnsemblBiomartClient = fetch_ensembl_exon_lines(build=build, chromosomes=["Y"])
     for line in ensembl_client:
         typer.echo(line)
 
