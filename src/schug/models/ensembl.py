@@ -1,21 +1,22 @@
-from typing import TYPE_CHECKING, List, Optional
+from typing import Optional
 
-from pydantic import BaseModel
-from pydantic import Field as PydanticField
-from pydantic import validator
-from sqlmodel import Field, Relationship, SQLModel
-
-if TYPE_CHECKING:
-    from .gene import GeneBase, EnsemblGene
+from sqlmodel import Field
+from .exon import EnsemblExon
+from .gene import GeneBase, EnsemblGene
+from .transcript import EnsemblTranscript
 
 
-class Ensembl(GeneBase, table=True):
+class EnsemblBase(GeneBase):
     pass
+
+
+class Ensembl(EnsemblBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
 
 
 class EnsemblCreate():
     pass
 
 
-class EnsemblRead():
+class EnsemblRead(EnsemblBase):
     id: int

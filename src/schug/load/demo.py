@@ -2,7 +2,6 @@ from schug.database import engine
 from schug.models.exon import Exon
 from schug.models.gene import Gene
 from schug.models.transcript import Transcript
-from schug.models.ensembl import Ensembl
 from sqlmodel import Session
 
 
@@ -37,17 +36,8 @@ def load_demo():
                 transcripts=transcripts,
             )
         ]
-        ensembl_genes = [
-            Ensembl(
-                ensembl_gene_id="ENSG00000176022",
-                primary_symbol="B3GALT6",
-                hgnc_id=17978,
-            )
-        ]
     for gene in genes:
         session.add(gene)
-    for entries in ensembl_genes:
-        session.add(entries)
     session.commit()
     for gene in genes:
         session.refresh(gene)
