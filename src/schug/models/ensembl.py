@@ -5,16 +5,17 @@ from pydantic import Field as PydanticField
 from pydantic import validator
 from sqlmodel import Field, Relationship, SQLModel
 
-
-class EnsemblBase(SQLModel):
-    ensembl_gene_id: str
-    primary_symbol: str
-    hgnc_id: int
+if TYPE_CHECKING:
+    from .gene import GeneBase, EnsemblGene
 
 
-class Ensembl(EnsemblBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+class Ensembl(GeneBase, table=True):
+    pass
 
 
-class EnsemblRead(EnsemblBase):
+class EnsemblCreate():
+    pass
+
+
+class EnsemblRead():
     id: int
