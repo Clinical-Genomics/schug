@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status
 
 from .database import create_db_and_tables
-from .endpoints import exons, genes, transcripts
+from .endpoints import exons, genes, transcripts, ensembl
 
 app = FastAPI()
 
@@ -32,6 +32,13 @@ app.include_router(
     exons.router,
     prefix="/exons",
     tags=["exons"],
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
+)
+
+app.include_router(
+    ensembl.router,
+    prefix="/ensembl",
+    tags=["ensembl"],
     responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
 )
 
