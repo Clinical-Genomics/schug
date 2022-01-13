@@ -2,17 +2,20 @@ from schug.database import engine
 from schug.models.exon import Exon
 from schug.models.gene import Gene
 from schug.models.transcript import Transcript
+from schug.models.ensembl import Ensembl
 from sqlmodel import Session
 
 
 def load_demo():
     """Load some dummy data into a test instance of schug"""
     with Session(engine) as session:
+        ensembl_entries = [
+            Ensembl()
+        ]
         exons = [
             Exon(chromosome="1", start=210111576, end=210111622, exon_name="ENSE00001443254"),
             Exon(chromosome="1", start=210126054, end=210126101, exon_name="ENSE00003523023"),
         ]
-
         transcripts = [
             Transcript(
                 chromosome="1",
@@ -34,7 +37,8 @@ def load_demo():
                 ensembl_id="ENSG00000176022",
                 primary_symbol="B3GALT6",
                 transcripts=transcripts,
-            )
+                ensembl=ensembl_entries,
+                )
         ]
     for gene in genes:
         session.add(gene)

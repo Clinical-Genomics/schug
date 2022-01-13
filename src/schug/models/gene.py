@@ -7,6 +7,7 @@ from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from .transcript import Transcript, TranscriptRead
+    from .ensembl import Ensembl
 
 
 class GeneBase(SQLModel):
@@ -22,6 +23,7 @@ class Gene(GeneBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
     transcripts: List["Transcript"] = Relationship(back_populates="gene")
+    ensembl: List["Ensembl"] = Relationship(back_populates="gene")
 
 
 class GeneRead(GeneBase):
