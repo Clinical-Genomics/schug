@@ -44,5 +44,6 @@ def read_canonical_ensembl_transcript(
                                             .where(EnsemblTranscript.ensembl_gene_id == ensembl_gene_id)
                                             .where(EnsemblTranscript.is_canonical)).one()
     except NoResultFound:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Gene not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="There is no canonical transcript for this gene.")
     return canonical_transcript
