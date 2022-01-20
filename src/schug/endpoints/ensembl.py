@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from schug.database import get_session
@@ -26,24 +26,11 @@ def read_ensembl_transcripts(
         ensembl_gene_id: str,
         session: Session = Depends(get_session),
         limit: int = Query(default=100, lte=100),
+        only_canonical: Optional[bool] = False
 ):
-    ensembl_transcripts = session.exec(select(EnsemblTranscript)
-                                       .where(EnsemblTranscript.ensembl_gene_id == ensembl_gene_id)
-                                       .limit(limit)).all()
+    where_clause = select(EnsemblTranscript).where(EnsemblTranscript.ensembl_gene_id == ensembl_gene_id)
+    if only_canonical:
+        where_clause = where_clause.where(EnsemblTranscript.is_canonical)
+
+    ensembl_transcripts = session.exec(where_clause.limit(limit)).all()
     return ensembl_transcripts
-
-
-@router.get("/canonical/{ensembl_gene_id}", response_model=EnsemblTranscriptRead)
-def read_canonical_ensembl_transcript(
-        *,
-        ensembl_gene_id: str,
-        session: Session = Depends(get_session),
-):
-    try:
-        canonical_transcript = session.exec(select(EnsemblTranscript)
-                                            .where(EnsemblTranscript.ensembl_gene_id == ensembl_gene_id)
-                                            .where(EnsemblTranscript.is_canonical)).one()
-    except NoResultFound:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail="There is no canonical transcript for this gene.")
-    return canonical_transcript
