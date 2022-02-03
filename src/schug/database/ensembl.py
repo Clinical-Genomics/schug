@@ -4,9 +4,9 @@ from sqlmodel import select
 
 from schug.database.session import get_session
 from schug.models import (
+    EnsemblExon, EnsemblExonRead, into_ensembl_exon_read,
+    EnsemblGene, EnsemblGeneRead, into_ensembl_gene_read,
     EnsemblTranscript, EnsemblTranscriptRead, into_ensembl_transcript_read,
-    EnsemblGene, EnsemblGeneRead,
-    EnsemblExon, EnsemblExonRead,
 )
 
 
@@ -17,7 +17,11 @@ def get_ensembl_genes(limit: int = 100) -> List["EnsemblGeneRead"]:
     with get_session() as session:
         queried_genes = session.exec(query.limit(limit)).all()
 
-        return queried_genes
+        converted = []
+        for item in queried_genes:
+            converted.append(into_ensembl_gene_read(item))
+
+        return converted
 
 
 def get_ensembl_transcripts(
@@ -31,11 +35,11 @@ def get_ensembl_transcripts(
     with get_session() as session:
         queried_transcripts = session.exec(query.limit(limit)).all()
 
-        ensembl_transcripts = []
-        for t in queried_transcripts:
-            ensembl_transcripts.append(into_ensembl_transcript_read(t))
+        converted = []
+        for item in queried_transcripts:
+            converted.append(into_ensembl_transcript_read(item))
 
-        return ensembl_transcripts
+        return converted
 
 
 def get_ensembl_exons(transcript_id: str) -> List[EnsemblExonRead]:
@@ -44,6 +48,10 @@ def get_ensembl_exons(transcript_id: str) -> List[EnsemblExonRead]:
 
     with get_session() as session:
         queried_exons = session.exec(query).all()
+
+        converted = []
+        for item in queried_exons:
+            converted.append(into_ensembl_exon_read(item))
 
         return queried_exons
 

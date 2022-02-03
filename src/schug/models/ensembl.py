@@ -51,14 +51,39 @@ class EnsemblExonRead(EnsemblExonBase):
     id: int
 
 
-def into_ensembl_transcript_read(ensembl_transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
-    """Explicit definition of Ensembl transcript model, allows one -> many relationships in one model."""
+def into_ensembl_exon_read(exon: EnsemblExon) -> EnsemblExonRead:
+    """Explicit definition of Ensembl exon model. Allows one to many relationships in one model."""
+    return EnsemblExonRead(
+        id=exon.id,
+        chromosome=exon.chromosome,
+        start=exon.start,
+        end=exon.end,
+        genome_build=exon.genome_build,
+        ensembl_exon_id=exon.ensembl_exon_id,
+    )
+
+
+def into_ensembl_gene_read(gene: EnsemblGene) -> EnsemblGeneRead:
+    """Explicit definition of Ensembl gene model. Allows one to many relationships in one model."""
+    return EnsemblGeneRead(
+        id=gene.id,
+        chromosome=gene.chromosome,
+        start=gene.start,
+        end=gene.end,
+        genome_build=gene.genome_build,
+        ensembl_id=gene.ensembl_id,
+        transcripts=gene.transcripts,
+    )
+
+
+def into_ensembl_transcript_read(transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
+    """Explicit definition of Ensembl transcript model. Allows one to many relationships in one model."""
     return EnsemblTranscriptRead(
-        id=ensembl_transcript.id,
-        transcript_name=ensembl_transcript.transcript_name,
-        start=ensembl_transcript.start,
-        end=ensembl_transcript.end,
-        chromosome=ensembl_transcript.chromosome,
-        genome_build=ensembl_transcript.genome_build,
-        is_canonical=ensembl_transcript.is_canonical,
+        id=transcript.id,
+        transcript_name=transcript.transcript_name,
+        start=transcript.start,
+        end=transcript.end,
+        chromosome=transcript.chromosome,
+        genome_build=transcript.genome_build,
+        is_canonical=transcript.is_canonical,
     )
