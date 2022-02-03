@@ -2,7 +2,6 @@ import typer
 import uvicorn
 from schug.cli import fetch, load
 from schug.config import settings
-from schug.database import create_db_and_tables
 from schug.load.demo import load_demo
 
 cli = typer.Typer()
@@ -32,5 +31,4 @@ def setup_app(demo: bool = typer.Option(False, "--demo")):
     """Setup the service with some information"""
     typer.echo("Setting up schug")
     if demo:
-        create_db_and_tables()
         load_demo()

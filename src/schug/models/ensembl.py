@@ -1,12 +1,8 @@
 from typing import List, Optional
 
-from sqlmodel import Field, Relationship, SQLModel
-
-
-class CoordBase(SQLModel):
-    chromosome: str
-    start: int
-    end: int
+from .common import CoordBase
+from sqlmodel import Field, Relationship
+from pydantic import parse_obj_as
 
 
 class EnsemblGeneBase(CoordBase):
@@ -37,3 +33,16 @@ class EnsemblTranscript(EnsemblTranscriptBase, table=True):
 
 class EnsemblTranscriptRead(EnsemblTranscriptBase):
     id: int
+
+
+def into_ensembl_transcript(ensembl_transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
+    """Explicit definition of Ensembl transcript model, allow one -> many relationships in one model."""
+    return EnsemblTranscriptRead(
+        id=ensembl_transcript.id,
+        transcript_name=ensembl_transcript.transcript_name,
+        start=ensembl_transcript.start,
+        end=ensembl_transcript.end,
+        chromosome=ensembl_transcript.chromosome,
+        genome_build=ensembl_transcript.genome_build,
+        is_canonical=ensembl_transcript.is_canonical,
+    )
