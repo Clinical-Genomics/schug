@@ -1,4 +1,5 @@
 from .common import CoordBase
+from .ensembl import EnsemblExon, EnsemblExonRead
 from .ensembl import EnsemblGene, EnsemblGeneRead
 from .ensembl import EnsemblTranscript, EnsemblTranscriptRead, into_ensembl_transcript
 from .exon import Exon, ExonRead

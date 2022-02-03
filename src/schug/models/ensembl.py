@@ -2,7 +2,6 @@ from typing import List, Optional
 
 from .common import CoordBase
 from sqlmodel import Field, Relationship
-from pydantic import parse_obj_as
 
 
 class EnsemblGeneBase(CoordBase):
@@ -30,13 +29,30 @@ class EnsemblTranscript(EnsemblTranscriptBase, table=True):
     ensembl_gene_id: Optional[int] = Field(foreign_key="ensemblgene.ensembl_id")
     ensembl_gene: Optional["EnsemblGene"] = Relationship(back_populates="transcripts")
 
+    exons: List["EnsemblExon"] = Relationship(back_populates="ensembl_transcript")
+
 
 class EnsemblTranscriptRead(EnsemblTranscriptBase):
     id: int
 
 
+class EnsemblExonBase(CoordBase):
+    ensembl_exon_id: str
+
+
+class EnsemblExon(EnsemblExonBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+    ensembl_transcript_id: Optional[int] = Field(foreign_key="ensembltranscript.transcript_name")
+    ensembl_transcript: Optional["EnsemblTranscript"] = Relationship(back_populates="exons")
+
+
+class EnsemblExonRead(EnsemblExonBase):
+    id: int
+
+
 def into_ensembl_transcript(ensembl_transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
-    """Explicit definition of Ensembl transcript model, allow one -> many relationships in one model."""
+    """Explicit definition of Ensembl transcript model, allows one -> many relationships in one model."""
     return EnsemblTranscriptRead(
         id=ensembl_transcript.id,
         transcript_name=ensembl_transcript.transcript_name,

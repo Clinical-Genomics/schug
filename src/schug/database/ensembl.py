@@ -3,6 +3,7 @@ from sqlmodel import select
 from schug.database.session import get_session
 from schug.models import EnsemblTranscript, into_ensembl_transcript
 from schug.models import EnsemblGene
+from schug.models import EnsemblExon
 
 
 def get_ensembl_genes(limit=100):
@@ -27,6 +28,15 @@ def get_ensembl_transcripts(ensembl_gene_id, only_canonical, limit=100):
             ensembl_transcripts.append(into_ensembl_transcript(t))
 
         return ensembl_transcripts
+
+
+def get_ensembl_exons(transcript_id):
+    query = select(EnsemblExon).where(EnsemblExon.ensembl_transcript_id == transcript_id)
+
+    with get_session() as session:
+        queried_exons = session.exec(query).all()
+
+        return queried_exons
 
 
 def update_ensembl(gene):

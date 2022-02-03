@@ -2,7 +2,7 @@ from schug.database.session import get_session
 from schug.models.exon import Exon
 from schug.models.gene import Gene
 from schug.models.transcript import Transcript
-from schug.models.ensembl import EnsemblGene, EnsemblTranscript
+from schug.models.ensembl import EnsemblExon, EnsemblGene, EnsemblTranscript
 
 
 def load_demo():
@@ -43,6 +43,15 @@ def load_demo():
         print(gene)
 
     with get_session() as session:
+        ensembl_exon = [
+            EnsemblExon(
+                chromosome="1",
+                start=210111576,
+                end=210111622,
+                genome_build="GRCh38",
+                ensembl_exon_id="ENSE00001443254",
+            )
+        ]
         ensembl_transcript = [
             EnsemblTranscript(
                 transcript_name="ENST00000379198",
@@ -51,6 +60,7 @@ def load_demo():
                 end="1170421",
                 is_canonical=True,
                 genome_build="GRCh38",
+                exons=ensembl_exon,
             ),
             EnsemblTranscript(
                 transcript_name="ENST00000379198",
