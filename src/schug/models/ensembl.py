@@ -51,7 +51,7 @@ class EnsemblExonRead(EnsemblExonBase):
     id: int
 
 
-def into_ensembl_transcript(ensembl_transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
+def into_ensembl_transcript_read(ensembl_transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
     """Explicit definition of Ensembl transcript model, allows one -> many relationships in one model."""
     return EnsemblTranscriptRead(
         id=ensembl_transcript.id,
