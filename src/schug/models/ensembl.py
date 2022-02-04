@@ -52,7 +52,7 @@ class EnsemblExonRead(EnsemblExonBase):
 
 
 def into_ensembl_exon_read(exon: EnsemblExon) -> EnsemblExonRead:
-    """Explicit definition of Ensembl exon model. Allows one to many relationships in one model."""
+    """Explicit definition of Ensembl exon model. Allows flexibility in the external representation of model."""
     return EnsemblExonRead(
         id=exon.id,
         chromosome=exon.chromosome,
@@ -64,7 +64,7 @@ def into_ensembl_exon_read(exon: EnsemblExon) -> EnsemblExonRead:
 
 
 def into_ensembl_gene_read(gene: EnsemblGene) -> EnsemblGeneRead:
-    """Explicit definition of Ensembl gene model. Allows one to many relationships in one model."""
+    """Explicit definition of Ensembl gene model. Allows flexibility in the external representation of model."""
     return EnsemblGeneRead(
         id=gene.id,
         chromosome=gene.chromosome,
@@ -77,7 +77,7 @@ def into_ensembl_gene_read(gene: EnsemblGene) -> EnsemblGeneRead:
 
 
 def into_ensembl_transcript_read(transcript: EnsemblTranscript) -> EnsemblTranscriptRead:
-    """Explicit definition of Ensembl transcript model. Allows one to many relationships in one model."""
+    """Explicit definition of Ensembl transcript model. Allows flexibility in the external representation of model."""
     return EnsemblTranscriptRead(
         id=transcript.id,
         transcript_name=transcript.transcript_name,
