@@ -48,7 +48,7 @@ def load_demo():
                 chromosome="1",
                 start=210111576,
                 end=210111622,
-                genome_build="GRCh38",
+                genome_build=38,
                 ensembl_exon_id="ENSE00001443254",
             )
         ]
@@ -59,7 +59,7 @@ def load_demo():
                 start="1167629",
                 end="1170421",
                 is_canonical=True,
-                genome_build="GRCh38",
+                genome_build=38,
                 exons=ensembl_exon,
             ),
             EnsemblTranscript(
@@ -68,7 +68,7 @@ def load_demo():
                 start="1167629",
                 end="1170421",
                 is_canonical=False,
-                genome_build="GRCh38",
+                genome_build=38,
             )
         ]
         ensembl_gene = [
@@ -77,7 +77,7 @@ def load_demo():
                 chromosome="1",
                 start=1167629,
                 end=1170421,
-                genome_build="GRCh38",
+                genome_build=38,
                 transcripts=ensembl_transcript
             )
         ]
