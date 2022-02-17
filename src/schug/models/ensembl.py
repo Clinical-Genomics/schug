@@ -1,11 +1,19 @@
 from typing import List, Optional
 
 from .common import CoordBase
+
+from pydantic import validator
 from sqlmodel import Field, Relationship
 
 
 class EnsemblGeneBase(CoordBase):
     ensembl_id: str
+
+    @validator('ensembl_id', always=True)
+    def correct_id(cls, value):
+        if not value.startswith("ENSG"):
+            raise ValueError(f'{value}: invalid Ensembl gene id')
+        return value
 
 
 class EnsemblGene(EnsemblGeneBase, table=True):
@@ -18,9 +26,19 @@ class EnsemblGeneRead(EnsemblGeneBase):
     id: int
 
 
+class EnsemblGeneCreate(EnsemblGeneBase):
+    pass
+
+
 class EnsemblTranscriptBase(CoordBase):
     transcript_name: str
     is_canonical: bool
+
+    @validator('transcript_name', always=True)
+    def correct_id(cls, value):
+        if not value.startswith("ENST"):
+            raise ValueError(f'{value}: invalid Ensembl transcript id')
+        return value
 
 
 class EnsemblTranscript(EnsemblTranscriptBase, table=True):
@@ -38,6 +56,12 @@ class EnsemblTranscriptRead(EnsemblTranscriptBase):
 
 class EnsemblExonBase(CoordBase):
     ensembl_exon_id: str
+
+    @validator('ensembl_exon_id', always=True)
+    def correct_id(cls, value):
+        if not value.startswith("ENSE"):
+            raise ValueError(f'{value}: invalid Ensembl exon id')
+        return value
 
 
 class EnsemblExon(EnsemblExonBase, table=True):

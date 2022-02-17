@@ -1,6 +1,6 @@
 from .common import CoordBase
 from .ensembl import (
-    EnsemblExon, EnsemblExonRead, into_ensembl_exon_read,
+    EnsemblExon, EnsemblExonRead, EnsemblGeneCreate, into_ensembl_exon_read,
     EnsemblGene, EnsemblGeneRead, into_ensembl_gene_read,
     EnsemblTranscript, EnsemblTranscriptRead, into_ensembl_transcript_read
 )

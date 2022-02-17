@@ -5,7 +5,7 @@ from sqlmodel import select
 from schug.database.session import get_session
 from schug.models import (
     EnsemblExon, EnsemblExonRead, into_ensembl_exon_read,
-    EnsemblGene, EnsemblGeneRead, into_ensembl_gene_read,
+    EnsemblGene, EnsemblGeneCreate, EnsemblGeneRead, into_ensembl_gene_read,
     EnsemblTranscript, EnsemblTranscriptRead, into_ensembl_transcript_read,
 )
 
@@ -22,6 +22,17 @@ def get_ensembl_genes(limit: int = 100) -> List["EnsemblGeneRead"]:
             converted.append(into_ensembl_gene_read(item))
 
         return converted
+
+
+def put_ensembl_gene(gene: EnsemblGeneCreate) -> EnsemblGene:
+    """Create an Ensembl"""
+    db_ensemblgene = EnsemblGene.from_orm(gene)
+
+    with get_session() as session:
+        session.add(db_ensemblgene)
+        session.commit()
+        session.refresh(db_ensemblgene)
+        return db_ensemblgene
 
 
 def get_ensembl_transcripts(
@@ -54,8 +65,3 @@ def get_ensembl_exons(transcript_id: str) -> List[EnsemblExonRead]:
             converted.append(into_ensembl_exon_read(item))
 
         return queried_exons
-
-
-def update_ensembl(gene):
-    """Update the ensemblgene table"""
-    pass
