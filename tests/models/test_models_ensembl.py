@@ -10,7 +10,7 @@ def test_into_ensembl_gene_read(
         end_coord,
         chromosome_entry,
         genome_build_entry
-) -> EnsemblGeneRead:
+):
     """Given an instance of EnsemblGene, convert into EnsemblGeneRead"""
     instance = EnsemblGeneRead(
         id=1,
@@ -29,7 +29,7 @@ def test_into_ensembl_transcript_read(
         end_coord,
         chromosome_entry,
         genome_build_entry
-) -> EnsemblTranscriptRead:
+):
     """Given an instance of EnsemblGene, convert into EnsemblGeneRead"""
     instance = EnsemblTranscriptRead(
         id=1,
@@ -49,7 +49,7 @@ def test_into_ensembl_exon_read(
         end_coord,
         chromosome_entry,
         genome_build_entry
-) -> EnsemblExonRead:
+):
     """Given an instance of EnsemblGene, convert into EnsemblGeneRead"""
     instance = EnsemblExonRead(
         id=1,
