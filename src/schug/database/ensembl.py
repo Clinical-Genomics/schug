@@ -25,7 +25,7 @@ def get_ensembl_genes(limit: int = 100) -> List["EnsemblGeneRead"]:
 
 
 def put_ensembl_gene(gene: EnsemblGeneCreate) -> EnsemblGene:
-    """Create an Ensembl"""
+    """Create an entry of EnsemblGene"""
     db_ensemblgene = EnsemblGene.from_orm(gene)
 
     with get_session() as session:
