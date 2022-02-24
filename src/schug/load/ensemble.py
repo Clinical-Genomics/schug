@@ -28,7 +28,7 @@ def fetch_ensembl_biomart(attributes: List[str], filters: dict, build=None) -> E
     """
     build = build or "37"
 
-    client = EnsemblBiomartClient(build=build, filters=filters, attributes=attributes)
+    client = EnsemblBiomartClient(build=build, filters=filters, attributes=attributes, header=False)
     LOG.info("Selecting attributes: %s", ", ".join(attributes))
     LOG.info("Use filter: %s", filters)
 

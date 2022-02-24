@@ -1,9 +1,11 @@
 from typing import List, Optional
 
+import typer
+
 from fastapi import APIRouter, Query
 from .http_exceptions import SchugHttpException
 from schug.database.ensembl import (
-    get_ensembl_exons, put_ensembl_gene,
+    get_ensembl_exons,
     get_ensembl_genes,
     get_ensembl_transcripts
 )
@@ -13,6 +15,7 @@ from schug.models import (
     EnsemblGeneRead,
     EnsemblTranscriptRead,
 )
+from schug.cli.base import endpoints
 
 router = APIRouter()
 
@@ -29,9 +32,9 @@ def read_ensembl_genes(
 
 
 @router.post("/", response_model=EnsemblGene)
-def create_ensembl_gene(*, gene: EnsemblGeneCreate) -> EnsemblGene:
+def create_ensembl_gene(*, build: str):
     """Put a record of Ensembl gene into the db."""
-    return put_ensembl_gene(gene)
+    return typer.run(endpoints.ensembl_genes(build))
 
 
 @router.get("/transcripts/{ensembl_gene_id}", response_model=List[EnsemblTranscriptRead])

@@ -1,6 +1,6 @@
 import typer
 import uvicorn
-from schug.cli import fetch, load
+from schug.cli import fetch, load, endpoints
 from schug.config import settings
 from schug.load.demo import load_demo
 
@@ -16,6 +16,7 @@ def callback():
 
 cli.add_typer(load.app, name="load", help="Load information")
 cli.add_typer(fetch.app, name="fetch", help="Fetch data from sources")
+cli.add_typer(endpoints.app, name="post", help="Fetch from Ensembl Biomart")
 
 
 @cli.command("serve")
