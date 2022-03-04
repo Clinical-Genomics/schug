@@ -33,28 +33,28 @@ class rest_api_fetcher(BaseModel):
         return data
 
     def search_all_hgnc_genes(self) -> List[dict]:
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/search/alias_symbol/*",
             server=self.hgnc_server,
             headers={"Accept": "application/json"},
         )["response"]["docs"]
 
     def fetch_all_hgnc_genes(self):
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/fetch/status/Approved",
             server=self.hgnc_server,
             headers={"Accept": "application/json"},
         )["response"]["docs"]
 
     def fetch_hgnc_gene(self, hgnc_id: str):
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/fetch/hgnc_id/" + hgnc_id,
             server=self.hgnc_server,
             headers={"Accept": "application/json"},
         )["response"]["docs"]
 
     def fetch_ensembl_gene(self, symbol: str, server):
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/lookup/id/" + symbol,
             server=server,
             headers={"Accept": "application/json"},
@@ -62,7 +62,7 @@ class rest_api_fetcher(BaseModel):
 
     def fetch_multiple_ensembl_gene(self, symbols: List[str], server):
         data = json.dumps({"ids": symbols}).encode(encoding="utf-8")
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/lookup/id",
             server=server,
             headers={"Accept": "application/json", "Content-type": "application/json"},
@@ -72,7 +72,7 @@ class rest_api_fetcher(BaseModel):
     def fetch_hpo_gene(
         self, entrez_id: str
     ):  # TODO fix certification error for this endpoint. Maybe use the request package?
-        return self.REST_action(
+        return self.rest_action(
             endpoint="/api/hpo/gene/" + entrez_id,
             server=self.hpo_server,
             headers={"Accept": "application/json"},
