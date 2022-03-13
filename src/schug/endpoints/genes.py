@@ -1,6 +1,7 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, Query, status
+from .http_exceptions import SchugHttpException
 from schug.database.session import get_session
 from schug.models import Gene, GeneRead
 from sqlalchemy.exc import NoResultFound
@@ -17,6 +18,7 @@ def read_genes(
     limit: int = Query(default=100, lte=100),
 ):
     genes = session.exec(select(Gene).offset(offset).limit(limit)).all()
+    SchugHttpException.error_404(result=genes, query="Ensembl Genes")
     return genes
 
 
@@ -28,7 +30,7 @@ def read_gene_db_id(
 ):
     gene = session.get(Gene, db_id)
     if not gene:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Gene not found")
+        SchugHttpException.error_404(result=gene, query=db_id)
     return gene
 
 
@@ -41,7 +43,7 @@ def read_gene_hgnc_id(
     try:
         gene = session.exec(select(Gene).where(Gene.hgnc_id == hgnc_id)).one()
     except NoResultFound:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Gene not found")
+        SchugHttpException.error_404(result=None, query=hgnc_id)
     return gene
 
 
@@ -54,5 +56,5 @@ def read_gene_hgnc_symbol(
     try:
         gene = session.exec(select(Gene).where(Gene.primary_symbol == hgnc_symbol)).one()
     except NoResultFound:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Gene not found")
+        SchugHttpException.error_404(result=None, query=hgnc_symbol)
     return gene
