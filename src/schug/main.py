@@ -1,6 +1,5 @@
 from fastapi import FastAPI, status
 
-from .database import create_db_and_tables
 from .endpoints import exons, genes, transcripts
 
 app = FastAPI()
