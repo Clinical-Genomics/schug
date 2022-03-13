@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from schug.database import get_session
+from schug.database.session import get_session
 from schug.models import Transcript, TranscriptRead
 from schug.models.transcript import TranscriptReadWithExons
 from sqlmodel import Session, select
