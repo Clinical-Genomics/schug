@@ -64,6 +64,18 @@ class HgncGene(BaseModel):
         return values["alias_symbols"].split("|")
 
 
+def into_gene(ensembl_gene: EnsemblGene) -> Gene:
+    """Convert EnsemblGene to Gene"""
+    return Gene(
+        chromosome=ensembl_gene.chromosome,
+        start=ensembl_gene.start,
+        end=ensembl_gene.end,
+        hgnc_id=ensembl_gene.hgnc_id,
+        primary_symbol=ensembl_gene.hgnc_symbol,
+        ensembl_id=ensembl_gene.gene_id,
+    )
+
+
 """
 {
     "hgnc_id": "HGNC:15766",

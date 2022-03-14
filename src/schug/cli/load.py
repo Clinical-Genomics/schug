@@ -3,13 +3,14 @@ from typing import List
 
 import typer
 from pydantic import parse_obj_as
+from schug.database.genes import create_gene_item
 from schug.load.ensemble import (
     fetch_ensembl_exon_lines,
     fetch_ensembl_genes,
     fetch_ensembl_transcripts,
 )
 from schug.models.exon import EnsemblExon
-from schug.models.gene import EnsemblGene
+from schug.models.gene import EnsemblGene, Gene
 from schug.models.transcript import EnsemblTranscript
 
 app = typer.Typer()
@@ -61,9 +62,12 @@ def genes(ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i")):
         List[EnsemblGene],
         [parsed_line for parsed_line in csv.DictReader(ensembl_file, delimiter="\t")],
     )
+
     for i, gene in enumerate(parsed_genes):
-        if i == 5:
+        # TODO: fix hgnc values returning None
+        if i == 4:
             break
+        create_gene_item(gene)
         typer.echo(gene)
 
 
