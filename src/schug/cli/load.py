@@ -10,7 +10,7 @@ from schug.load.ensemble import (
     fetch_ensembl_transcripts,
 )
 from schug.models.exon import EnsemblExon
-from schug.models.gene import EnsemblGene, Gene
+from schug.models.gene import EnsemblGene
 from schug.models.transcript import EnsemblTranscript
 
 app = typer.Typer()
