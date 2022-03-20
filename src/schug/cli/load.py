@@ -1,5 +1,5 @@
 import csv
-from typing import List
+from typing import List, Optional
 
 import typer
 from pydantic import parse_obj_as
@@ -52,11 +52,15 @@ def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile"
 
 
 @app.command()
-def genes(ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i")):
-    """Load transcript data"""
+def genes(
+        ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i"),
+        build: Optional[str] = typer.Option("37", "--build", "-b"),
+        chromosome: Optional[List[str]] = typer.Option(["Y"], "--chromosome", "-c")
+):
+    """Load gene data into database"""
     typer.echo("Loading genes")
     if not ensembl_file:
-        ensembl_file = fetch_ensembl_genes(build="37", chromosomes=["Y"])
+        ensembl_file = fetch_ensembl_genes(build=build, chromosomes=chromosome)
 
     parsed_genes = parse_obj_as(
         List[EnsemblGene],
@@ -64,9 +68,9 @@ def genes(ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i")):
     )
 
     for i, gene in enumerate(parsed_genes):
-        # TODO: fix hgnc values returning None
-        if i == 4:
+        if i == 5:
             break
+        gene.genome_build = build
         create_gene_item(gene)
         typer.echo(gene)
 
