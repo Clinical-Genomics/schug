@@ -14,7 +14,7 @@ def callback():
     """
 
 
-cli.add_typer(load.app, name="load", help="Load information")
+cli.add_typer(load.app, name="load", help="Load information into database")
 cli.add_typer(fetch.app, name="fetch", help="Fetch data from sources")
 
 
