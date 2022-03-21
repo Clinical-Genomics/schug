@@ -9,7 +9,7 @@ client = TestClient(app)
 
 
 def test_read_genes():
-    """Test atlas documents response"""
+    """Test read genes response"""
     # GIVEN a path
     path: str = "/gene"
 
