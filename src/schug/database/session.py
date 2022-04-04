@@ -4,4 +4,4 @@ from schug.database import engine
 
 
 def get_session():
-    return Session(engine)
+    yield Session(engine)
