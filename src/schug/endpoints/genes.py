@@ -1,9 +1,18 @@
-from typing import List
+import csv
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, Query, status
+
 from .http_exceptions import SchugHttpException
+from schug.database.genes import create_gene_item
 from schug.database.session import get_session
-from schug.models import Gene, GeneRead
+from schug.load.ensemble import (
+    fetch_ensembl_genes,
+)
+from schug.models import Gene, GeneRead, GeneCreate, EnsemblGene
+
+from pydantic import parse_obj_as
+
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select
 
@@ -20,6 +29,27 @@ def read_genes(
     genes = session.exec(select(Gene).offset(offset).limit(limit)).all()
     SchugHttpException.error_404(result=genes, query="Ensembl Genes")
     return genes
+
+
+@router.post("/", response_model=List[GeneCreate])
+def create_genes(
+        *,
+        session: Session = Depends(get_session),
+        build: Optional[str] = "38",
+        chromosome: Optional[str] = "Y",
+):
+    ensembl_obj = fetch_ensembl_genes(build=build, chromosomes=chromosome)
+
+    parsed_genes = parse_obj_as(
+        List[EnsemblGene],
+        [parsed_line for parsed_line in csv.DictReader(ensembl_obj, delimiter="\t")],
+    )
+
+    for i, gene in enumerate(parsed_genes):
+        if i == 5:
+            break
+        gene.genome_build = build
+        create_gene_item(session=session, ensembl_gene=gene)
 
 
 @router.get("/{db_id}", response_model=GeneRead)

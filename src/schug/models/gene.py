@@ -27,6 +27,10 @@ class GeneRead(GeneBase):
     id: int
 
 
+class GeneCreate(GeneBase):
+    pass
+
+
 class GeneReadWithTranscript(GeneRead):
     transcripts: List["TranscriptRead"] = []
 
