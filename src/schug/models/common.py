@@ -1,5 +1,6 @@
+from typing import Literal
+
 from sqlmodel import SQLModel
-from pydantic import validator
 
 
 class CoordBase(SQLModel):
