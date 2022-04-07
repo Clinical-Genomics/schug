@@ -1,7 +1,7 @@
 import csv
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, Query, status, HTTPException
 
 from .http_exceptions import SchugHttpException
 from schug.database.genes import create_gene_item
@@ -27,7 +27,7 @@ def read_genes(
     limit: int = Query(default=100, lte=100),
 ):
     genes = session.exec(select(Gene).offset(offset).limit(limit)).all()
-    SchugHttpException.error_404(result=genes, query="Ensembl Genes")
+    SchugHttpException.error_404(result=genes, query="genes")
     return genes
 
 
@@ -45,11 +45,26 @@ def create_genes(
         [parsed_line for parsed_line in csv.DictReader(ensembl_obj, delimiter="\t")],
     )
 
+    genes_created = []
     for i, gene in enumerate(parsed_genes):
         if i == 5:
             break
         gene.genome_build = build
-        create_gene_item(session=session, ensembl_gene=gene)
+        genes_created.append(create_gene_item(ensembl_gene=gene, session=session))
+    return genes_created
+
+
+@router.delete("/")
+def delete_genes(
+        session: Session = Depends(get_session)
+):
+    genes = session.exec(select(Gene)).all()
+    SchugHttpException.error_404(result=genes, query="gene entries")
+    for gene in genes:
+        session.delete(gene)
+        session.commit()
+
+    return {"Gene table cleared"}
 
 
 @router.get("/{db_id}", response_model=GeneRead)

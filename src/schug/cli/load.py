@@ -4,7 +4,6 @@ from typing import List, Optional
 import typer
 from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
-from schug.database.genes import get_session
 from schug.load.ensemble import (
     fetch_ensembl_exon_lines,
     fetch_ensembl_genes,
@@ -72,7 +71,7 @@ def genes(
         if i == 5:
             break
         gene.genome_build = build
-        create_gene_item(session=get_session(), ensembl_gene=gene)
+        create_gene_item(ensembl_gene=gene)
         typer.echo(gene)
 
 

@@ -8,6 +8,8 @@ class CoordBase(SQLModel):
     chromosome: str
     start: int
     end: int
+    resource: str
+    resource_id: str
     genome_build: str
 
     @validator('genome_build', pre=True)

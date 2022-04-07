@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, List, Optional, Literal
 
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
@@ -14,7 +14,6 @@ if TYPE_CHECKING:
 class GeneBase(CoordBase):
     hgnc_id: Optional[int]
     primary_symbol: Optional[str]
-    ensembl_id: str
 
 
 class Gene(GeneBase, table=True):
@@ -37,10 +36,11 @@ class GeneReadWithTranscript(GeneRead):
 
 class EnsemblGene(BaseModel):
     chromosome: str = PydanticField(..., alias="Chromosome/scaffold name")
-    gene_id: str = PydanticField(..., alias="Gene stable ID")
+    resource_id: str = PydanticField(..., alias="Gene stable ID")
     start: int = PydanticField(..., alias="Gene start (bp)")
     end: int = PydanticField(..., alias="Gene end (bp)")
     genome_build: Optional[str]
+    resource: str = "Ensembl"
     hgnc_symbol: Optional[str] = PydanticField(None, alias="HGNC symbol")
     hgnc_id: Optional[int] = PydanticField(None, alias="HGNC ID")
 
@@ -83,7 +83,8 @@ def into_gene(ensembl_gene: EnsemblGene) -> Gene:
         genome_build=ensembl_gene.genome_build,
         hgnc_id=ensembl_gene.hgnc_id,
         primary_symbol=ensembl_gene.hgnc_symbol,
-        ensembl_id=ensembl_gene.gene_id,
+        resource_id=ensembl_gene.resource_id,
+        resource=ensembl_gene.resource,
     )
 
 
