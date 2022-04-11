@@ -1,8 +1,9 @@
 import csv
-from typing import List
+from typing import List, Optional
 
 import typer
 from pydantic import parse_obj_as
+from schug.database.genes import create_gene_item
 from schug.load.ensemble import (
     fetch_ensembl_exon_lines,
     fetch_ensembl_genes,
@@ -51,19 +52,26 @@ def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile"
 
 
 @app.command()
-def genes(ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i")):
-    """Load transcript data"""
+def genes(
+        ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i"),
+        build: Optional[str] = typer.Option("37", "--build", "-b"),
+        chromosome: Optional[List[str]] = typer.Option(["Y"], "--chromosome", "-c")
+):
+    """Load gene data into database"""
     typer.echo("Loading genes")
     if not ensembl_file:
-        ensembl_file = fetch_ensembl_genes(build="37", chromosomes=["Y"])
+        ensembl_file = fetch_ensembl_genes(build=build, chromosomes=chromosome)
 
     parsed_genes = parse_obj_as(
         List[EnsemblGene],
         [parsed_line for parsed_line in csv.DictReader(ensembl_file, delimiter="\t")],
     )
+
     for i, gene in enumerate(parsed_genes):
         if i == 5:
             break
+        gene.genome_build = build
+        create_gene_item(ensembl_gene=gene)
         typer.echo(gene)
 
 

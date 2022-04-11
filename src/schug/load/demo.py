@@ -1,13 +1,12 @@
-from schug.database import engine
+from schug.database.session import get_session
 from schug.models.exon import Exon
 from schug.models.gene import Gene
 from schug.models.transcript import Transcript
-from sqlmodel import Session
 
 
 def load_demo():
     """Load some dummy data into a test instance of schug"""
-    with Session(engine) as session:
+    with get_session() as session:
         exons = [
             Exon(chromosome="1", start=210111576, end=210111622, exon_name="ENSE00001443254"),
             Exon(chromosome="1", start=210126054, end=210126101, exon_name="ENSE00003523023"),

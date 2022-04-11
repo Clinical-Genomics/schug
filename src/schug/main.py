@@ -1,6 +1,5 @@
 from fastapi import FastAPI, status
 
-from .database import create_db_and_tables
 from .endpoints import exons, genes, transcripts
 
 app = FastAPI()
@@ -34,8 +33,3 @@ app.include_router(
     tags=["exons"],
     responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
 )
-
-
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
