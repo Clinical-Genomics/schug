@@ -11,7 +11,6 @@ from schug.models import Transcript, TranscriptRead
 from schug.models.common import Build
 from schug.models.transcript import TranscriptReadWithExons
 from sqlmodel import Session, select
-from starlette.background import BackgroundTask
 
 LOG = logging.getLogger(__name__)
 router = APIRouter()
@@ -51,6 +50,6 @@ async def ensembl_transcripts(build: Build):
                     yield chunk
 
     ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(build)
-    url = ensembl_client.build_url(xml=enseml_client.xml)
+    url = ensembl_client.build_url(xml=ensembl_client.xml)
 
     return StreamingResponse(stream_file(url=url), media_type="text/TSV")
