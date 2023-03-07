@@ -9,7 +9,7 @@ readme = "README.md"
 schug = "schug.cli.base:cli"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 sqlmodel = "^0.0.4"
 fastapi = "^0.68.1"
 uvicorn = "^0.15.0"
