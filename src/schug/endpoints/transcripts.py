@@ -1,12 +1,19 @@
+import logging
 from typing import List
 
+import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from fastapi.responses import FileResponse
+from fastapi.responses import StreamingResponse
 from schug.database.session import get_session
+from schug.load.biomart import EnsemblBiomartClient
+from schug.load.ensembl import fetch_ensembl_transcripts
 from schug.models import Transcript, TranscriptRead
+from schug.models.common import Build
 from schug.models.transcript import TranscriptReadWithExons
 from sqlmodel import Session, select
+from starlette.background import BackgroundTask
 
+LOG = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -33,6 +40,17 @@ def read_transcript_db_id(
     return transcript
 
 
-@router.get("/ensembl_transcripts/{build}", response_class=FileResponse)
-def ensembl_transcripts():
-    """A proxy endpooint to the Ensembl transcripts in the given genome build"""
+@router.get("/ensembl_transcripts/", response_class=StreamingResponse)
+async def ensembl_transcripts(build: Build):
+    """A proxy to the Ensembl Biomart that retrieves transcripts in a specific genome build."""
+
+    async def stream_file(url):
+        async with httpx.AsyncClient(timeout=None) as client:
+            async with client.stream("GET", url) as r:
+                async for chunk in r.aiter_bytes():
+                    yield chunk
+
+    ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(build)
+    url = ensembl_client.build_url(xml=enseml_client.xml)
+
+    return StreamingResponse(stream_file(url=url), media_type="text/TSV")

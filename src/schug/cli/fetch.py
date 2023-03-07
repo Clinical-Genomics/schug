@@ -2,7 +2,7 @@ import logging
 
 import typer
 from schug.load.biomart import EnsemblBiomartClient
-from schug.load.ensemble import (
+from schug.load.ensembl import (
     fetch_ensembl_exon_lines,
     fetch_ensembl_exons,
     fetch_ensembl_genes,

@@ -1,20 +1,16 @@
 import csv
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, Query, status, HTTPException
-
-from .http_exceptions import SchugHttpException
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
 from schug.database.session import get_session
-from schug.load.ensemble import (
-    fetch_ensembl_genes,
-)
-from schug.models import Gene, GeneRead, GeneCreate, EnsemblGene
-
-from pydantic import parse_obj_as
-
+from schug.load.ensembl import fetch_ensembl_genes
+from schug.models import EnsemblGene, Gene, GeneCreate, GeneRead
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select
+
+from .http_exceptions import SchugHttpException
 
 router = APIRouter()
 
@@ -33,10 +29,10 @@ def read_genes(
 
 @router.post("/", response_model=List[GeneCreate])
 def create_genes(
-        *,
-        session: Session = Depends(get_session),
-        build: Optional[str] = "38",
-        chromosome: Optional[str] = "Y",
+    *,
+    session: Session = Depends(get_session),
+    build: Optional[str] = "38",
+    chromosome: Optional[str] = "Y",
 ):
     ensembl_obj = fetch_ensembl_genes(build=build, chromosomes=chromosome)
 
@@ -55,9 +51,7 @@ def create_genes(
 
 
 @router.delete("/")
-def delete_genes(
-        session: Session = Depends(get_session)
-):
+def delete_genes(session: Session = Depends(get_session)):
     genes = session.exec(select(Gene)).all()
     SchugHttpException.error_404(result=genes, query="gene entries")
     for gene in genes:
