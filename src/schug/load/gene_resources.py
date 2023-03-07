@@ -11,7 +11,7 @@ HPO_URL = (
 )
 
 
-def fetch_genes_to_hpo_to_disease() -> list[str]:
+def fetch_genes_to_hpo_to_disease() -> List[str]:
     """Fetch the latest version of the map from genes to phenotypes
         Returns:
         res(list(str)): A list with the lines formatted this way:
