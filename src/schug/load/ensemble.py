@@ -104,7 +104,7 @@ def fetch_ensembl_exon_lines(
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
 
 
-def fetch_ensembl_exons(build: str, chromosomes: Optional[list[str]] = None) -> list[EnsemblExon]:
+def fetch_ensembl_exons(build: str, chromosomes: Optional[List[str]] = None) -> List[EnsemblExon]:
     """Fetch ensembl exon objects"""
     exon_lines: EnsemblBiomartClient = fetch_ensembl_exon_lines(
         build=build, chromosomes=chromosomes
