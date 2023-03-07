@@ -1,4 +1,3 @@
-import logging
 from typing import List
 
 import httpx
@@ -12,7 +11,6 @@ from schug.models.common import Build
 from schug.models.transcript import TranscriptReadWithExons
 from sqlmodel import Session, select
 
-LOG = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -43,13 +41,13 @@ def read_transcript_db_id(
 async def ensembl_transcripts(build: Build):
     """A proxy to the Ensembl Biomart that retrieves transcripts in a specific genome build."""
 
-    async def stream_file(url):
+    async def stream_file(url) -> bytes:
         async with httpx.AsyncClient(timeout=None) as client:
             async with client.stream("GET", url) as r:
                 async for chunk in r.aiter_bytes():
                     yield chunk
 
     ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(build)
-    url = ensembl_client.build_url(xml=ensembl_client.xml)
+    url: str = ensembl_client.build_url(xml=ensembl_client.xml)
 
     return StreamingResponse(stream_file(url=url), media_type="text/TSV")
