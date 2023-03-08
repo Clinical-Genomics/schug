@@ -2,12 +2,15 @@ import csv
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi.responses import StreamingResponse
 from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
 from schug.database.session import get_session
 from schug.endpoints.http_exceptions import SchugHttpException
 from schug.load.ensembl import fetch_ensembl_genes
+from schug.load.fetch_resource import stream_resource
 from schug.models import EnsemblGene, Gene, GeneCreate, GeneRead
+from schug.models.common import Build
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select
 
@@ -96,3 +99,13 @@ def read_gene_hgnc_symbol(
     except NoResultFound:
         SchugHttpException.error_404(result=None, query=hgnc_symbol)
     return gene
+
+
+@router.get("/ensembl_genes/", response_class=StreamingResponse)
+async def ensembl_genes(build: Build):
+    """A proxy to the Ensembl Biomart that retrieves genes in a specific genome build."""
+
+    ensembl_client: EnsemblBiomartClient = fetch_ensembl_genes(build=build)
+    url: str = ensembl_client.build_url(xml=ensembl_client.xml)
+
+    return StreamingResponse(stream_resource(url), media_type="text/tsv")
