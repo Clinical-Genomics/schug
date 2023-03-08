@@ -50,4 +50,4 @@ async def ensembl_transcripts(build: Build):
     ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(build)
     url: str = ensembl_client.build_url(xml=ensembl_client.xml)
 
-    return StreamingResponse(stream_file(url=url), media_type="text/TSV")
+    return StreamingResponse(stream_file(url=url), media_type="text/tsv")
