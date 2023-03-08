@@ -50,7 +50,7 @@ def client(session) -> TestClient:
 
 @pytest.fixture
 def endpoints() -> Endpoints:
-    """returns an instance of the class Endpoints"""
+    """Returns an instance of the class Endpoints."""
     return Endpoints
 
 
