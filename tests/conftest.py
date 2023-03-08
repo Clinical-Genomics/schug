@@ -4,6 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 from schug.database.session import get_session
 from schug.main import app
+from schug.models.common import Build
 from schug.models.gene import Gene
 from sqlmodel import Session, SQLModel, create_engine
 
@@ -57,4 +58,4 @@ def endpoints() -> Endpoints:
 @pytest.fixture(name="schug_gene")
 def fixture_gene_id() -> Gene:
     """Return a Gene object."""
-    return Gene(start=1, end=2, chromosome="1", genome_build="38", ensembl_id="ENSG123")
+    return Gene(start=1, end=2, chromosome="1", genome_build=Build.build_38, ensembl_id="ENSG123")
