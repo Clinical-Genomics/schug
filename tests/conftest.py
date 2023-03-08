@@ -50,11 +50,11 @@ def client(session) -> TestClient:
 
 @pytest.fixture
 def endpoints() -> Endpoints:
-    """returns an instance of the class Endpoints"""
+    """Returns an instance of the class Endpoints."""
     return Endpoints
 
 
 @pytest.fixture(name="schug_gene")
 def fixture_gene_id() -> Gene:
-    """Return Gene object"""
+    """Return a Gene object."""
     return Gene(start=1, end=2, chromosome="1", genome_build="38", ensembl_id="ENSG123")
