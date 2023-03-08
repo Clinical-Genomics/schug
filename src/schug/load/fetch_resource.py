@@ -5,6 +5,7 @@ from typing import List
 from urllib.request import urlopen
 from urllib.response import addinfourl
 
+import httpx
 import requests
 
 LOG = logging.getLogger(__name__)
@@ -58,3 +59,11 @@ def fetch_resource(url: str) -> List[str]:
     data = content.split("\n")
 
     return data
+
+
+async def stream_resource(url: str) -> bytes:
+    """Stream a file from an external service"""
+    async with httpx.AsyncClient(timeout=None) as client:
+        async with client.stream("GET", url) as r:
+            async for chunk in r.aiter_bytes():
+                yield chunk

@@ -1,11 +1,11 @@
 from typing import List
 
-import httpx
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import StreamingResponse
 from schug.database.session import get_session
 from schug.load.biomart import EnsemblBiomartClient
 from schug.load.ensembl import fetch_ensembl_transcripts
+from schug.load.fetch_resource import stream_resource
 from schug.models import Transcript, TranscriptRead
 from schug.models.common import Build
 from schug.models.transcript import TranscriptReadWithExons
@@ -41,13 +41,7 @@ def read_transcript_db_id(
 async def ensembl_transcripts(build: Build):
     """A proxy to the Ensembl Biomart that retrieves transcripts in a specific genome build."""
 
-    async def stream_file(url) -> bytes:
-        async with httpx.AsyncClient(timeout=None) as client:
-            async with client.stream("GET", url) as r:
-                async for chunk in r.aiter_bytes():
-                    yield chunk
-
     ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(build)
     url: str = ensembl_client.build_url(xml=ensembl_client.xml)
 
-    return StreamingResponse(stream_file(url=url), media_type="text/tsv")
+    return StreamingResponse(stream_resource(url), media_type="text/tsv")

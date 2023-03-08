@@ -5,12 +5,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
 from schug.database.session import get_session
+from schug.endpoints.http_exceptions import SchugHttpException
 from schug.load.ensembl import fetch_ensembl_genes
 from schug.models import EnsemblGene, Gene, GeneCreate, GeneRead
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select
-
-from .http_exceptions import SchugHttpException
 
 router = APIRouter()
 
