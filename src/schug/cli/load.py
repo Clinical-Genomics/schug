@@ -4,7 +4,7 @@ from typing import List, Optional
 import typer
 from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
-from schug.load.ensemble import (
+from schug.load.ensembl import (
     fetch_ensembl_exon_lines,
     fetch_ensembl_genes,
     fetch_ensembl_transcripts,
@@ -53,9 +53,9 @@ def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile"
 
 @app.command()
 def genes(
-        ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i"),
-        build: Optional[str] = typer.Option("37", "--build", "-b"),
-        chromosome: Optional[List[str]] = typer.Option(["Y"], "--chromosome", "-c")
+    ensembl_file: typer.FileText = typer.Option(None, "--infile", "-i"),
+    build: Optional[str] = typer.Option("37", "--build", "-b"),
+    chromosome: Optional[List[str]] = typer.Option(["Y"], "--chromosome", "-c"),
 ):
     """Load gene data into database"""
     typer.echo("Loading genes")
