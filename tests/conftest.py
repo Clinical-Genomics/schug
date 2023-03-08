@@ -32,8 +32,8 @@ def session_fixture() -> Session:
         db.close()
 
 
-@pytest.fixture(name="simple_client")
-def simple_client(session) -> TestClient:
+@pytest.fixture(name="client")
+def client(session) -> TestClient:
     """Returns a fastapi.testclient.TestClient used to test the endpoints of an app with an empty database."""
 
     def _override_get_db():
