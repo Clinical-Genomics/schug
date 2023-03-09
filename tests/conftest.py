@@ -66,7 +66,7 @@ def fixture_gene_id() -> Gene:
 
 
 @pytest.fixture(name="file_handler")
-def file_handler():
+def file_handler() -> TextIOWrapper:
     """Get a file handler to a resource file."""
 
     def _open_file(file_path: str) -> TextIOWrapper:
