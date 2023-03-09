@@ -1,23 +1,13 @@
+from fastapi import status
 from fastapi.encoders import jsonable_encoder
-from fastapi.testclient import TestClient
-
-from schug.main import app
 from schug.models import GeneRead
 
 
-client = TestClient(app)
+def test_read_genes_empty_db(client, endpoints):
+    """Test read genes response when database is empty."""
 
+    # WHEN getting a response from the genes endpoints of an empty app
+    response = client.get(endpoints.GENES)
 
-def test_read_genes():
-    """Test read genes response"""
-    # GIVEN a path
-    path: str = "/gene"
-
-    # WHEN getting a response
-    response = client.get(path)
-
-    # THEN return status ok
-    assert response.status_code == 200
-
-    # THEN return schug gene in response
-    assert response.json() == [jsonable_encoder(GeneRead)]
+    # THEN expected status should be 404 (NOT FOUND)
+    assert response.status_code == status.HTTP_404_NOT_FOUND
