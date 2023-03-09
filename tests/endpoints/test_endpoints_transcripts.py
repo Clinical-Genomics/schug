@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Callable, Type
 
 from _io import TextIOWrapper
 from fastapi import status
@@ -10,7 +10,7 @@ from schug.models.common import Build
 
 
 def test_ensembl_transcripts_37(
-    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: TextIOWrapper
+    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: Callable
 ):
     """Test downloading the transcripts file in genome build 37 using the Ensembl Biomart."""
 
@@ -27,7 +27,7 @@ def test_ensembl_transcripts_37(
 
 
 def test_ensembl_transcripts_38(
-    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: TextIOWrapper
+    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: Callable
 ):
     """Test downloading the transcripts file in genome build 38 using the Ensembl Biomart."""
 

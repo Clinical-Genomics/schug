@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Callable, Type
 
 from _io import TextIOWrapper
 from fastapi import status
@@ -20,7 +20,7 @@ def test_read_genes_empty_db(client: TestClient, endpoints: Type):
 
 
 def test_ensembl_genes_37(
-    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: TextIOWrapper
+    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: Callable
 ):
     """Test downloading the genes file in genome build 37 using the Ensembl Biomart."""
 
@@ -37,7 +37,7 @@ def test_ensembl_genes_37(
 
 
 def test_ensembl_genes_38(
-    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: TextIOWrapper
+    client: TestClient, endpoints: Type, mocker: MockerFixture, file_handler: Callable
 ):
     """Test downloading the genes file in genome build 38 using the Ensembl Biomart."""
 
