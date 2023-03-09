@@ -5,7 +5,7 @@ from schug.models.common import Build
 
 
 def test_ensembl_transcripts_37(client, endpoints, mocker, file_handler):
-    """Test downloading the transcripts file in genome build 37 using the Ensembl Biomart"""
+    """Test downloading the transcripts file in genome build 37 using the Ensembl Biomart."""
 
     # GIVEN a patched response from Ensembl Biomart
     tx_lines = file_handler(TX_37_PATH)
@@ -20,7 +20,7 @@ def test_ensembl_transcripts_37(client, endpoints, mocker, file_handler):
 
 
 def test_ensembl_transcripts_38(client, endpoints, mocker, file_handler):
-    """Test downloading the transcripts file in genome build 38 using the Ensembl Biomart"""
+    """Test downloading the transcripts file in genome build 38 using the Ensembl Biomart."""
 
     # GIVEN a patched response from Ensembl Biomart
     tx_lines = file_handler(TX_38_PATH)

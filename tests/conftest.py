@@ -1,6 +1,7 @@
 from enum import Enum
 
 import pytest
+from _io import TextIOWrapper
 from fastapi.testclient import TestClient
 from schug.database.session import get_session
 from schug.main import app
@@ -66,9 +67,9 @@ def fixture_gene_id() -> Gene:
 
 @pytest.fixture(name="file_handler")
 def file_handler():
-    """Get a file handler to a resource file"""
+    """Get a file handler to a resource file."""
 
-    def _open_file(file_path):
+    def _open_file(file_path: str) -> TextIOWrapper:
         return open(file_path, "r", encoding="utf-8")
 
     return _open_file

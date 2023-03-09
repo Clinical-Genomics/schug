@@ -15,7 +15,7 @@ def test_read_genes_empty_db(client, endpoints):
 
 
 def test_ensembl_genes_37(client, endpoints, mocker, file_handler):
-    """Test downloading the genes file in genome build 37 using the Ensembl Biomart"""
+    """Test downloading the genes file in genome build 37 using the Ensembl Biomart."""
 
     # GIVEN a patched response from Ensembl Biomart
     gene_lines = file_handler(GENES_37_PATH)
@@ -30,7 +30,7 @@ def test_ensembl_genes_37(client, endpoints, mocker, file_handler):
 
 
 def test_ensembl_genes_38(client, endpoints, mocker, file_handler):
-    """Test downloading the genes file in genome build 38 using the Ensembl Biomart"""
+    """Test downloading the genes file in genome build 38 using the Ensembl Biomart."""
 
     # GIVEN a patched response from Ensembl Biomart
     gene_lines = file_handler(GENES_38_PATH)
