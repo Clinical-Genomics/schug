@@ -20,6 +20,7 @@ class Endpoints(str, Enum):
     GENES = "/genes/"
     ENSEMBL_GENES = "/genes/ensembl_genes/"
     ENSEMBL_TRANCRIPTS = "/transcripts/ensembl_transcripts/"
+    ENSEMBL_EXONS = "/exons/ensembl_exons/"
 
 
 @pytest.fixture(name="session")
