@@ -6,10 +6,13 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock.plugin import MockerFixture
 from requests.models import Response
-from schug.demo import GENES_37_PATH, GENES_38_PATH
+from schug.demo import GENES_37_FILE_PATH, GENES_38_FILE_PATH
 from schug.models.common import Build
 
-PROXY_ENDPOINTS_PARAMS = [(Build.build_37, GENES_37_PATH), (Build.build_38, GENES_38_PATH)]
+PROXY_ENDPOINTS_PARAMS = [
+    (Build.build_37, GENES_37_FILE_PATH),
+    (Build.build_38, GENES_38_FILE_PATH),
+]
 
 
 def test_read_genes_empty_db(client: TestClient, endpoints: Type):

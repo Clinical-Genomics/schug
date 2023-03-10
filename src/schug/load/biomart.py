@@ -40,14 +40,14 @@ class EnsemblXML:
         }
 
     @staticmethod
-    def create_biomart_xml(filters: dict, attributes: List[str]) -> str:
-        """Convert biomart query params into a xml format biomart query"""
+    def create_biomart_xml(filters: dict, attributes: List[str], header: bool) -> str:
+        """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
         xml_lines = [
             '<?xml version="1.0" encoding="UTF-8"?>',
             "<!DOCTYPE Query>",
-            '<Query  virtualSchemaName = "default" formatter = "TSV" header = "0" uniqueRows'
+            f'<Query  virtualSchemaName = "default" formatter = "TSV" header = "{0 if bool is False else 1}" uniqueRows'
             ' = "0" count = "" datasetConfigVersion = "0.6" completionStamp = "1">',
             "",
             '\t<Dataset name = "hsapiens_gene_ensembl" interface = "default" >',
@@ -107,8 +107,10 @@ class EnsemblBiomartClient:
             self.server = BIOMART_38_URL
         self.filters: dict = filters or {}
         self.attributes: List[str] = attributes or []
-        self.xml: str = self.xml_creator.create_biomart_xml(filters=filters, attributes=attributes)
         self.header: bool = header
+        self.xml: str = self.xml_creator.create_biomart_xml(
+            filters=filters, attributes=attributes, header=header
+        )
 
         LOG.info("Setting up ensembl biomart client with server %s", self.server)
         self.query = self._query_service(xml=self.xml)

@@ -6,12 +6,12 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock.plugin import MockerFixture
 from requests.models import Response
-from schug.demo import TRANSCRIPTS_37_PATH, TRANSCRIPTS_38_PATH
+from schug.demo import TRANSCRIPTS_37_FILE_PATH, TRANSCRIPTS_38_FILE_PATH
 from schug.models.common import Build
 
 PROXY_ENDPOINTS_PARAMS = [
-    (Build.build_37, TRANSCRIPTS_37_PATH),
-    (Build.build_38, TRANSCRIPTS_38_PATH),
+    (Build.build_37, TRANSCRIPTS_37_FILE_PATH),
+    (Build.build_38, TRANSCRIPTS_38_FILE_PATH),
 ]
 
 

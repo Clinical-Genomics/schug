@@ -1,17 +1,15 @@
-import pkg_resources
+from pathlib import Path
 
-# Filenames
-EXONS_37: str = "demo/exons_37.tsv"
-EXONS_38: str = "demo/exons_38.tsv"
-GENES_37: str = "demo/genes_37.tsv"
-GENES_38: str = "demo/genes_38.tsv"
-TRANCRIPTS_37: str = "demo/transcripts_37.tsv"
-TRANCRIPTS_38: str = "demo/transcripts_38.tsv"
+import importlib_resources
 
 # Paths
-EXONS_37_PATH: str = pkg_resources.resource_filename("schug", EXONS_37)
-EXONS_38_PATH: str = pkg_resources.resource_filename("schug", EXONS_38)
-GENES_37_PATH: str = pkg_resources.resource_filename("schug", GENES_37)
-GENES_38_PATH: str = pkg_resources.resource_filename("schug", GENES_38)
-TRANSCRIPTS_37_PATH: str = pkg_resources.resource_filename("schug", TRANCRIPTS_37)
-TRANSCRIPTS_38_PATH: str = pkg_resources.resource_filename("schug", TRANCRIPTS_38)
+EXONS_37_FILE_PATH: str = Path(importlib_resources.files("schug"), "demo", "exons_37.tsv")
+EXONS_38_FILE_PATH: str = Path(importlib_resources.files("schug"), "demo", "exons_38.tsv")
+GENES_37_FILE_PATH: str = Path(importlib_resources.files("schug"), "demo", "genes_37.tsv")
+GENES_38_FILE_PATH: str = Path(importlib_resources.files("schug"), "demo", "genes_38.tsv")
+TRANSCRIPTS_37_FILE_PATH: str = Path(
+    importlib_resources.files("schug"), "demo", "transcripts_37.tsv"
+)
+TRANSCRIPTS_38_FILE_PATH: str = Path(
+    importlib_resources.files("schug"), "demo", "transcripts_38.tsv"
+)

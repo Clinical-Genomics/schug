@@ -6,10 +6,13 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock.plugin import MockerFixture
 from requests.models import Response
-from schug.demo import EXONS_37_PATH, EXONS_38_PATH
+from schug.demo import EXONS_37_FILE_PATH, EXONS_38_FILE_PATH
 from schug.models.common import Build
 
-PROXY_ENDPOINTS_PARAMS = [(Build.build_37, EXONS_37_PATH), (Build.build_38, EXONS_38_PATH)]
+PROXY_ENDPOINTS_PARAMS = [
+    (Build.build_37, EXONS_37_FILE_PATH),
+    (Build.build_38, EXONS_38_FILE_PATH),
+]
 
 
 @pytest.mark.parametrize("build, path", PROXY_ENDPOINTS_PARAMS)
