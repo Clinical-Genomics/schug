@@ -41,7 +41,7 @@ class EnsemblXML:
 
     @staticmethod
     def create_biomart_xml(filters: dict, attributes: List[str], header: bool) -> str:
-        """Convert biomart query params into a xml format biomart query"""
+        """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
         xml_lines = [
