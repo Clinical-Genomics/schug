@@ -1,4 +1,4 @@
-[1.0]
+[1.0.0]
 ### Added
 - Endpoint to Ensembl genes download
 - Endpoint to Ensembl transcripts download
