@@ -5,7 +5,7 @@ from schug import __version__
 
 def test_root(client: TestClient):
     """Test the root endpoint."""
-    # WHEN user makes a call to the heatbeat endpoint
+    # WHEN user makes a call to the root endpoint
     response = client.get("/")
     # THEN it should return success
     assert response.status_code == status.HTTP_200_OK
