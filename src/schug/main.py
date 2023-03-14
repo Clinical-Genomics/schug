@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status
+from schug import __version__
 
 from .endpoints import exons, genes, transcripts
 
@@ -9,7 +10,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to Schug: the magic gene, transcript and exon database"}
+    return {"message": f"Welcome to Schug v.{__version__}!"}
 
 
 app.include_router(
