@@ -11,4 +11,4 @@
 ### Changed
 - Run the app with Python>=3.8
 ### Fixed
-- Typing errors in `fetch_ensembl_exons` and `fetch_genes_to_hpo_to_disease` that prevented the app from start
+- Typing errors in `fetch_ensembl_exons` and `fetch_genes_to_hpo_to_disease` that prevented the app from starting
