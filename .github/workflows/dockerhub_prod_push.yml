@@ -1,22 +1,23 @@
-name: Publish to Docker Hub
+name: Publish to Docker - prod
 
 on:
- release:
-  types:
-   - created
+  release:
+    types:
+      - created
 
- docker-image-CI:
-   name: Docker Image CI
-   runs-on: ubuntu-latest
-   steps:
+jobs:
+  docker-image-CI:
+    name: Docker Image CI
+    runs-on: ubuntu-latest
+    steps:
 
-    - name: Check out git repository
-      uses: actions/checkout@v3
+      - name: Check out git repository
+        uses: actions/checkout@v3
 
-    - name: Publish main image (Dockerfile) to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-        name: clinicalgenomics/schug
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: "latest,${{ github.event.release.tag_name }}"
+      - name: Publish main image (Dockerfile) to Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: clinicalgenomics/schug
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "latest,${{ github.event.release.tag_name }}"
