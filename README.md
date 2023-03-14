@@ -5,7 +5,7 @@ information. There is a [REST API][rest-api] with relevant endpoints.
 
 ## Test the app using Docker
 
-You can test Schug on your local computer using Docker. Make sure you have [Docker][docker] installed and type the following command in a terminal window:
+You can test Schug on your local computer using Docker. Make sure you have [Docker][docker] installed and type the following commands in a terminal window:
 
 ```
 git clone https://github.com/Clinical-Genomics/schug
