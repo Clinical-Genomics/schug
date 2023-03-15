@@ -27,7 +27,7 @@ def fetch_genes_to_hpo_to_disease() -> List[str]:
 
 def fetch_hgnc() -> List[str]:
     """Fetch the hgnc genes file from
-        ftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt
+        sftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt
     Returns:
         hgnc_gene_lines(list(str))
     """
