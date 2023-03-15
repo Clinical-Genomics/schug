@@ -1,8 +1,10 @@
-[1.0.1]
+# Change Log
+
+## [1.0.1]
 ### Fixed
 - Use a memory database as default database in demo instance
 
-[1.0.0]
+##  [1.0.0]
 ### Added
 - Endpoint to Ensembl genes download
 - Endpoint to Ensembl transcripts download
