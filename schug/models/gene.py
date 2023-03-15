@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, List, Optional, Literal
+from typing import TYPE_CHECKING, List, Literal, Optional
 
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
@@ -50,10 +50,10 @@ class EnsemblGene(BaseModel):
             return None
         return v
 
-    @validator('hgnc_id', pre=True)
+    @validator("hgnc_id", pre=True)
     def modify_id(cls, v):
         if type(v) != int:
-            return v.replace('HGNC:', '')
+            return v.replace("HGNC:", "")
         return v
 
 
@@ -63,7 +63,7 @@ class HgncGene(BaseModel):
     entrez_id: int
     hgnc_symbol: str = PydanticField(None, alias="HGNC symbol")
     hgnc_id: str
-    ccds_id: str = None
+    ccds_id: Optional[str] = None
     short_description: str = PydanticField(None, alias="alias_name")
     alias_symbol: str
 

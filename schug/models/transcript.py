@@ -51,7 +51,7 @@ class EnsemblTranscript(BaseModel):
     refseq_mrna: str = PydanticField(None, alias="RefSeq mRNA ID")
     refseq_mrna_predicted: str = PydanticField(None, alias="RefSeq mRNA predicted ID")
     refseq_ncrna_predicted: str = PydanticField(None, alias="RefSeq ncRNA ID")
-    refseq_id: str = None
+    refseq_id: Optional[str] = None
 
     @validator("refseq_id", always=True)
     def set_refseq_id(cls, _, values: dict) -> Optional[str]:
