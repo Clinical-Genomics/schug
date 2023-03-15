@@ -1,11 +1,13 @@
-[1.1]
+# Change Log
+
+## [1.1]
 ### Changed
 - Move the `schug` directory up in root dir folder
 ### Fixed
 - Use a memory database as default database in demo instance
 - Issues flagged by SonarCloud
 
-[1.0.0]
+## [1.0.0]
 ### Added
 - Endpoint to Ensembl genes download
 - Endpoint to Ensembl transcripts download
