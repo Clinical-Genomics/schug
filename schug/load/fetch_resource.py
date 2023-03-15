@@ -1,7 +1,7 @@
 import logging
 import urllib
 import zlib
-from typing import List
+from typing import AsyncGenerator, List
 from urllib.request import urlopen
 from urllib.response import addinfourl
 
@@ -61,7 +61,7 @@ def fetch_resource(url: str) -> List[str]:
     return data
 
 
-async def stream_resource(url: str) -> bytes:
+async def stream_resource(url: str) -> AsyncGenerator:
     """Stream a file from an external service"""
     async with httpx.AsyncClient(timeout=None) as client:
         async with client.stream("GET", url) as r:
