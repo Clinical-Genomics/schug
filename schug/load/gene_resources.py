@@ -27,11 +27,11 @@ def fetch_genes_to_hpo_to_disease() -> List[str]:
 
 def fetch_hgnc() -> List[str]:
     """Fetch the hgnc genes file from
-        ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt
+        sftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt
     Returns:
         hgnc_gene_lines(list(str))
     """
-    url = "ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt"
+    url = "sftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt"
     LOG.info("Fetching HGNC genes from %s", url)
 
     return fetch_resource(url)
@@ -41,7 +41,7 @@ def fetch_exac_constraint() -> List[str]:
     """Fetch the file with exac constraint scores"""
     file_name = "fordist_cleaned_exac_r03_march16_z_pli_rec_null_data.txt"
     url = (
-        "ftp://ftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint" "/{0}"
+        "sftp://sftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint/{0}"
     ).format(file_name)
 
     LOG.info("Fetching ExAC genes")
