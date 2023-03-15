@@ -1,4 +1,4 @@
-[unreleased]
+[1.1]
 ### Changed
 - Move the `schug` directory up in root dir folder
 ### Fixed
