@@ -1,4 +1,4 @@
-[unreleased]
+[1.0.1]
 ### Fixed
 - Use a memory database as default database in demo instance
 
