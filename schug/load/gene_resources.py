@@ -31,7 +31,7 @@ def fetch_hgnc() -> List[str]:
     Returns:
         hgnc_gene_lines(list(str))
     """
-    url = "sftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt"
+    url = "ftp://sftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt"
     LOG.info("Fetching HGNC genes from %s", url)
 
     return fetch_resource(url)
