@@ -1,4 +1,6 @@
-[unreleased]
+# Change Log
+
+## [1.1]
 ### Changed
 - Move the `schug` directory up in root dir folder
 ### Fixed
@@ -6,7 +8,7 @@
 - Issues flagged by SonarCloud
 - `Publish to PyPI` GitHub action 
 
-[1.0.0]
+## [1.0.0]
 ### Added
 - Endpoint to Ensembl genes download
 - Endpoint to Ensembl transcripts download
