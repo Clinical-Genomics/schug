@@ -6,6 +6,7 @@
 ### Fixed
 - Use a memory database as default database in demo instance
 - Issues flagged by SonarCloud
+- `Publish to PyPI` GitHub action 
 
 ## [1.0.0]
 ### Added
