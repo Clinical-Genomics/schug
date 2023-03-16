@@ -1,9 +1,6 @@
 name: Publish to PyPI
 
-on:
- release:
-  types:
-   - created
+on: [pull_request]
 
 jobs:
  build-n-publish:
