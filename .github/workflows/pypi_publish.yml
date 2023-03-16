@@ -28,4 +28,4 @@ jobs:
        poetry publish --build
      env:
        GITHUB: 1
-       POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+       PYPI_TOKENI: ${{ secrets.PYPI_TOKEN }}
