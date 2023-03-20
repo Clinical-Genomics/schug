@@ -3,6 +3,7 @@
 ## [unreleased]
 ### Changed
 - Updated Uvicorn library
+- Accept also `GRCh37` and `GRCh38` as build values when downloading resources
 
 ## [1.1]
 ### Changed
