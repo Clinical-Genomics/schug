@@ -9,6 +9,14 @@ class Build(str, Enum):
     build_37 = "37"
     build_38 = "38"
 
+    @classmethod
+    def _missing_(cls, value):
+        """Format GRCh37 and GRCh38 values into 37 and 38"""
+        for member in cls:
+            if member in value:
+                return member
+        return None
+
 
 class CoordBase(SQLModel):
     chromosome: str

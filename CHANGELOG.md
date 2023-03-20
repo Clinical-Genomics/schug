@@ -1,12 +1,16 @@
 # Change Log
 
+## [unreleased]
+### Change
+- Accept also `GRCh37` and `GRCh38` as build values when downloading resources
+
 ## [1.1]
 ### Changed
 - Move the `schug` directory up in root dir folder
 ### Fixed
 - Use a memory database as default database in demo instance
 - Issues flagged by SonarCloud
-- `Publish to PyPI` GitHub action 
+- `Publish to PyPI` GitHub action
 
 ## [1.0.0]
 ### Added
