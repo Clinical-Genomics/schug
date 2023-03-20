@@ -70,6 +70,8 @@ def fetch_ensembl_transcripts(
         "refseq_mrna",
         "refseq_mrna_predicted",
         "refseq_ncrna",
+        "transcript_mane_select",
+        "transcript_mane_plus_clinical",
     ]
 
     filters = {"chromosome_name": chromosomes}

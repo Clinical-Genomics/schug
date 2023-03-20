@@ -1,12 +1,16 @@
 # Change Log
 
 ## [1.1]
+### Added
+- Add `mane_plus_clinical` and `mane_select` info when downloading transcripts from Ensembl
+
+## [1.1]
 ### Changed
 - Move the `schug` directory up in root dir folder
 ### Fixed
 - Use a memory database as default database in demo instance
 - Issues flagged by SonarCloud
-- `Publish to PyPI` GitHub action 
+- `Publish to PyPI` GitHub action
 
 ## [1.0.0]
 ### Added
