@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import validator
 from sqlmodel import SQLModel
@@ -10,7 +10,7 @@ class Build(str, Enum):
     build_38 = "38"
 
     @classmethod
-    def _missing_(cls, value):
+    def _missing_(cls, value) -> Optional[Enum]:
         """Force GRCh37 and GRCh38 values into accepted formats."""
         for member in cls:
             if member in value:
