@@ -2,7 +2,7 @@
 
 ## [1.1]
 ### Added
-- Add `mane_plus_clinical` and `mane_select` info when downloading transcripts from Ensembl
+- Add `mane_plus_clinical` and `mane_select` columns to transcripts file downloaded from Ensembl
 
 ## [1.1]
 ### Changed
