@@ -11,7 +11,7 @@ class Build(str, Enum):
 
     @classmethod
     def _missing_(cls, value):
-        """Format GRCh37 and GRCh38 values into 37 and 38"""
+        """Force GRCh37 and GRCh38 values into accepted formats."""
         for member in cls:
             if member in value:
                 return member
