@@ -1,12 +1,10 @@
 # Change Log
 
 ## [unreleased]
-### Changed
-- Updated Uvicorn library
-
-## [1.1]
 ### Added
 - Add `mane_plus_clinical` and `mane_select` columns to transcripts file downloaded from Ensembl
+### Changed
+- Updated Uvicorn library
 
 ## [1.1]
 ### Changed
