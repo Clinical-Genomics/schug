@@ -4,6 +4,7 @@ from typing import List, Optional
 
 from pydantic import parse_obj_as
 from schug.load.biomart import EnsemblBiomartClient
+from schug.models.common import Build
 from schug.models.exon import EnsemblExon
 
 LOG = logging.getLogger(__name__)
@@ -71,6 +72,8 @@ def fetch_ensembl_transcripts(
         "refseq_mrna_predicted",
         "refseq_ncrna",
     ]
+    if build == Build.build_38:
+        attributes += ["transcript_mane_select", "transcript_mane_plus_clinical"]
 
     filters = {"chromosome_name": chromosomes}
 
