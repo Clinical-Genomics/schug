@@ -2,7 +2,7 @@
 
 ## [unreleased]
 ### Added
-- Add `mane_plus_clinical` and `mane_select` columns to transcripts file downloaded from Ensembl
+- Include also `mane_plus_clinical` and `mane_select` columns in transcripts file downloaded from Ensembl
 ### Changed
 - Updated Uvicorn library
 - Accept also `GRCh37` and `GRCh38` as build values when downloading resources
