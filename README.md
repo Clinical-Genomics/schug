@@ -26,7 +26,6 @@ Make sure [poetry][poetry] is installed
 git clone https://github.com/Clinical-Genomics/schug
 cd schug
 poetry install
-schug setup --demo
 schug serve --reload
 ```
 Go to http://localhost:8000/docs and check out the API.
@@ -39,19 +38,19 @@ Once having set up an instance of Schug, you can use the following endpoints:
 
    Downloads genes from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38'`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/genes/ensembl_genes/?build=38' > genes_GRCh38.txt`
 
  - **/transcripts/ensembl_transcripts/**
 
    Downloads gene transcripts from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/transcripts/ensembl_transcripts/?build=38'`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/transcripts/ensembl_transcripts/?build=38' > transcripts_GRCh38.txt`
 
  - **/exons/ensembl_exons/**
 
    Downloads gene exons from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38'`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38' > exons_GRCh38.txt`
 
 ## What is left to do?
 
