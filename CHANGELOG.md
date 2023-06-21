@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased]
+### Fixed
+- Typo in instructions to download genes in README document
+
 ## [1.2]
 ### Added
 - Include also `mane_plus_clinical` and `mane_select` columns in transcripts file downloaded from Ensembl
