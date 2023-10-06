@@ -5,7 +5,7 @@ import typer
 from pydantic import parse_obj_as
 from schug.database.genes import create_gene_item
 from schug.load.ensembl import (
-    fetch_ensembl_exon_lines,
+    fetch_ensembl_exons,
     fetch_ensembl_genes,
     fetch_ensembl_transcripts,
 )
@@ -24,7 +24,7 @@ def exons(
     """Load exon data"""
     typer.echo("Loading exons")
     if not exons_file:
-        exons_file = fetch_ensembl_exon_lines(build=build, chromosomes=["Y"])
+        exons_file = fetch_ensembl_exons(build=build, chromosomes=["Y"])
     parsed_exons = parse_obj_as(
         List[EnsemblExon],
         [parsed_line for parsed_line in csv.DictReader(exons_file, delimiter="\t")],
@@ -36,14 +36,19 @@ def exons(
 
 
 @app.command()
-def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile", "-i")):
+def transcripts(
+    transcripts_file: typer.FileText = typer.Option(None, "--infile", "-i")
+):
     """Load transcript data"""
     typer.echo("Loading transcripts")
     if not transcripts_file:
         transcripts_file = fetch_ensembl_transcripts(build="37", chromosomes=["Y"])
     parsed_transcripts = parse_obj_as(
         List[EnsemblTranscript],
-        [parsed_line for parsed_line in csv.DictReader(transcripts_file, delimiter="\t")],
+        [
+            parsed_line
+            for parsed_line in csv.DictReader(transcripts_file, delimiter="\t")
+        ],
     )
     for i, tx in enumerate(parsed_transcripts):
         if i == 5:

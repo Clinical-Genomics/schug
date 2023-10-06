@@ -53,7 +53,9 @@ def fetch_resource(url: str) -> List[str]:
     content: str = response.text
     if response.url.endswith(".gz"):
         LOG.info("gzipped!")
-        encoded_content = b"".join(chunk for chunk in response.iter_content(chunk_size=128))
+        encoded_content = b"".join(
+            chunk for chunk in response.iter_content(chunk_size=128)
+        )
         content = zlib.decompress(encoded_content, 16 + zlib.MAX_WBITS).decode("utf-8")
 
     data = content.split("\n")
