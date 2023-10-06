@@ -95,7 +95,9 @@ def read_gene_hgnc_symbol(
     session: Session = Depends(get_session),
 ):
     try:
-        gene = session.exec(select(Gene).where(Gene.primary_symbol == hgnc_symbol)).one()
+        gene = session.exec(
+            select(Gene).where(Gene.primary_symbol == hgnc_symbol)
+        ).one()
     except NoResultFound:
         SchugHttpException.error_404(result=None, query=hgnc_symbol)
     return gene

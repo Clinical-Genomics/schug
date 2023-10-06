@@ -62,7 +62,13 @@ def endpoints() -> Endpoints:
 @pytest.fixture(name="schug_gene")
 def fixture_gene_id() -> Gene:
     """Return a Gene object."""
-    return Gene(start=1, end=2, chromosome="1", genome_build=Build.build_38, ensembl_id="ENSG123")
+    return Gene(
+        start=1,
+        end=2,
+        chromosome="1",
+        genome_build=Build.build_38,
+        ensembl_id="ENSG123",
+    )
 
 
 @pytest.fixture(name="file_handler")

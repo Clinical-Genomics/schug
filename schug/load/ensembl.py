@@ -18,7 +18,9 @@ CHROMOSOMES = AUTOSOMES + [
 CHROMOSOMES_38 = AUTOSOMES + ["X", "Y", "M"]
 
 
-def fetch_ensembl_biomart(attributes: List[str], filters: dict, build=None) -> EnsemblBiomartClient:
+def fetch_ensembl_biomart(
+    attributes: List[str], filters: dict, build=None
+) -> EnsemblBiomartClient:
     """Fetch data from ensembl biomart
     Args:
         attributes(list): List of selected attributes
@@ -36,7 +38,9 @@ def fetch_ensembl_biomart(attributes: List[str], filters: dict, build=None) -> E
     return client
 
 
-def fetch_ensembl_genes(build: str, chromosomes: List[str] = None) -> EnsemblBiomartClient:
+def fetch_ensembl_genes(
+    build: str, chromosomes: List[str] = None
+) -> EnsemblBiomartClient:
     """Fetch genes from ensembl"""
     chromosomes: List[str] = chromosomes or CHROMOSOMES
     LOG.info("Fetching ensembl genes")
@@ -107,13 +111,16 @@ def fetch_ensembl_exon_lines(
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
 
 
-def fetch_ensembl_exons(build: str, chromosomes: Optional[List[str]] = None) -> List[EnsemblExon]:
+def fetch_ensembl_exons(
+    build: str, chromosomes: Optional[List[str]] = None
+) -> List[EnsemblExon]:
     """Fetch ensembl exon objects"""
     exon_lines: EnsemblBiomartClient = fetch_ensembl_exon_lines(
         build=build, chromosomes=chromosomes
     )
 
     parsed_exons = parse_obj_as(
-        List[EnsemblExon], [exon_info for exon_info in csv.DictReader(exon_lines, delimiter="\t")]
+        List[EnsemblExon],
+        [exon_info for exon_info in csv.DictReader(exon_lines, delimiter="\t")],
     )
     return parsed_exons

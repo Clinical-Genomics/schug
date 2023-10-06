@@ -36,14 +36,19 @@ def exons(
 
 
 @app.command()
-def transcripts(transcripts_file: typer.FileText = typer.Option(None, "--infile", "-i")):
+def transcripts(
+    transcripts_file: typer.FileText = typer.Option(None, "--infile", "-i")
+):
     """Load transcript data"""
     typer.echo("Loading transcripts")
     if not transcripts_file:
         transcripts_file = fetch_ensembl_transcripts(build="37", chromosomes=["Y"])
     parsed_transcripts = parse_obj_as(
         List[EnsemblTranscript],
-        [parsed_line for parsed_line in csv.DictReader(transcripts_file, delimiter="\t")],
+        [
+            parsed_line
+            for parsed_line in csv.DictReader(transcripts_file, delimiter="\t")
+        ],
     )
     for i, tx in enumerate(parsed_transcripts):
         if i == 5:
