@@ -33,7 +33,9 @@ def read_transcript_db_id(
 ):
     transcript = session.get(Transcript, db_id)
     if not transcript:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Transcript not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Transcript not found"
+        )
     return transcript
 
 

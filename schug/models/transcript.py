@@ -29,7 +29,9 @@ class Transcript(TranscriptBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
     gene: Optional["Gene"] = Relationship(back_populates="transcripts")
-    exons: List["Exon"] = Relationship(back_populates="transcripts", link_model=ExonTranscriptLink)
+    exons: List["Exon"] = Relationship(
+        back_populates="transcripts", link_model=ExonTranscriptLink
+    )
 
 
 class TranscriptRead(TranscriptBase):
@@ -55,7 +57,11 @@ class EnsemblTranscript(BaseModel):
 
     @validator("refseq_id", always=True)
     def set_refseq_id(cls, _, values: dict) -> Optional[str]:
-        order: List[str] = ["refseq_mrna", "refseq_mrna_predicted", "refseq_ncrna_predicted"]
+        order: List[str] = [
+            "refseq_mrna",
+            "refseq_mrna_predicted",
+            "refseq_ncrna_predicted",
+        ]
         for keyword in order:
             if values[keyword]:
                 return values[keyword]

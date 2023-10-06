@@ -3,6 +3,8 @@
 ## [unreleased]
 ### Fixed
 - Typo in instructions to download genes in README document
+### Changed
+- Code formatted with black and black check GitHub action
 
 ## [1.2]
 ### Added

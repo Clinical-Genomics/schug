@@ -8,8 +8,18 @@ def load_demo():
     """Load some dummy data into a test instance of schug"""
     with get_session() as session:
         exons = [
-            Exon(chromosome="1", start=210111576, end=210111622, exon_name="ENSE00001443254"),
-            Exon(chromosome="1", start=210126054, end=210126101, exon_name="ENSE00003523023"),
+            Exon(
+                chromosome="1",
+                start=210111576,
+                end=210111622,
+                exon_name="ENSE00001443254",
+            ),
+            Exon(
+                chromosome="1",
+                start=210126054,
+                end=210126101,
+                exon_name="ENSE00003523023",
+            ),
         ]
 
         transcripts = [
