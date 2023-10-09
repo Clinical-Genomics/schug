@@ -6,6 +6,8 @@
 ### Changed
 - Code formatted with black and black check GitHub action
 - Renamed `schug.load.ensembl.fetch_ensembl_exon_lines` function to `schug.load.ensembl.fetch_ensembl_exons`
+- Upgraded Python version from 3.8 to 3.11 in Dockerfile
+- Updated several python libraries in poetry.lock
 
 ## [1.2]
 ### Added
