@@ -6,6 +6,7 @@
 ### Changed
 - Code formatted with black and black check GitHub action
 - Upgraded Python version from 3.8 to 3.11 in Dockerfile
+- Updated several python libraries in poetry.lock
 
 ## [1.2]
 ### Added
