@@ -1,6 +1,6 @@
 # Change Log
 
-## [unreleased]
+## [1.3]
 ### Fixed
 - Typo in instructions to download genes in README document
 ### Changed
