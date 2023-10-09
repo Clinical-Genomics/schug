@@ -84,10 +84,10 @@ def fetch_ensembl_transcripts(
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
 
 
-def fetch_ensembl_exon_lines(
+def fetch_ensembl_exons(
     build: str, chromosomes: Optional[List[str]] = None
 ) -> EnsemblBiomartClient:
-    """Fetch the ensembl exons"""
+    """Fetch the ensembl exons."""
     chromosomes = chromosomes or CHROMOSOMES
     LOG.info("Fetching ensembl exons")
 
@@ -109,18 +109,3 @@ def fetch_ensembl_exon_lines(
     filters = {"chromosome_name": chromosomes}
 
     return fetch_ensembl_biomart(attributes=attributes, filters=filters, build=build)
-
-
-def fetch_ensembl_exons(
-    build: str, chromosomes: Optional[List[str]] = None
-) -> List[EnsemblExon]:
-    """Fetch ensembl exon objects"""
-    exon_lines: EnsemblBiomartClient = fetch_ensembl_exon_lines(
-        build=build, chromosomes=chromosomes
-    )
-
-    parsed_exons = parse_obj_as(
-        List[EnsemblExon],
-        [exon_info for exon_info in csv.DictReader(exon_lines, delimiter="\t")],
-    )
-    return parsed_exons
