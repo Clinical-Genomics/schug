@@ -9,9 +9,9 @@ readme = "README.md"
 schug = "schug.cli.base:cli"
 
 [tool.poetry.dependencies]
-python = "^3.7"
-sqlmodel = "^0.0.4"
-fastapi = "^0.68.1"
+python = "^3.8"
+sqlmodel = "^0.0.14"
+fastapi = "^0.104.1"
 typer = "^0.4.0"
 aiofiles = "^23.1.0"
 httpx = "^0.23.3"
@@ -20,6 +20,8 @@ pytest-mock = "^3.10.0"
 gunicorn = "^20.1.0"
 importlib-resources = "^5.12.0"
 uvicorn = "^0.21.1"
+pydantic = "^2.5.2"
+pydantic-settings = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
