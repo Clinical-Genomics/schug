@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.4]
+### Changed
+- Updated Pydantic(^2.5.2), SQLModel(^0.0.14) and FastaApi(^0.104.1) dependencies
+
 ## [1.3]
 ### Fixed
 - Typo in instructions to download genes in README document
