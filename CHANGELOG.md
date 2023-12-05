@@ -3,6 +3,7 @@
 ## [1.4]
 ### Changed
 - Updated Pydantic(^2.5.2) library and other dependencies
+- Support Python>=3.8
 
 ## [1.3]
 ### Fixed
