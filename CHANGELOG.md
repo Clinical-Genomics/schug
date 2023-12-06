@@ -4,6 +4,7 @@
 ### Changed
 - Updated Pydantic(^2.5.2) library and other dependencies
 - Support Python>=3.8
+- Updated version of external images used in GitHub actions
 
 ## [1.3]
 ### Fixed
