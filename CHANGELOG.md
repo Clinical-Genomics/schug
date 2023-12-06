@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased]
+### Changed
+- Updated version of external images used in GitHub actions
+
 ## [1.4]
 ### Changed
 - Updated Pydantic(^2.5.2) library and other dependencies
