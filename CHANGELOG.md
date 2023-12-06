@@ -4,6 +4,7 @@
 ### Changed
 - Updated version of external images used in GitHub actions
 - Updated Python version to v3.11 in tests GitHub action
+### Fixed
 - Updated pytest package to the latest version to fix GitHub tests action bug
 
 ## [1.4]
