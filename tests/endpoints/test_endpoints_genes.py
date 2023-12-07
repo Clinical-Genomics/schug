@@ -19,7 +19,7 @@ def test_read_genes_empty_db(client: TestClient, endpoints: Type):
     """Test read genes response when database is empty."""
 
     # WHEN getting a response from the genes endpoints of an empty app
-    response = client.get(endpoints.GENES)
+    response = client.get(endpoints.GENES.value)
 
     # THEN expected status should be 404 (NOT FOUND)
     assert response.status_code == status.HTTP_404_NOT_FOUND
@@ -41,7 +41,7 @@ def test_ensembl_genes(
     mocker.patch("schug.endpoints.genes.stream_resource", return_value=gene_lines)
 
     # WHEN sending a request to Biomart to retrieve genes in the given build
-    response: Response = client.get(f"{endpoints.ENSEMBL_GENES}?build={build}")
+    response: Response = client.get(f"{endpoints.ENSEMBL_GENES.value}?build={build}")
     # THEN it should return success
     assert response.status_code == status.HTTP_200_OK
     # AND response should contain lines
