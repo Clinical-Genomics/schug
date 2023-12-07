@@ -31,7 +31,9 @@ def test_ensembl_transcripts_37(
     mocker.patch("schug.endpoints.transcripts.stream_resource", return_value=tx_lines)
 
     # WHEN sending a request to Biomart to retrieve transcripts in the given build
-    response: Response = client.get(f"{endpoints.ENSEMBL_TRANCRIPTS.value}?build={build}")
+    response: Response = client.get(
+        f"{endpoints.ENSEMBL_TRANCRIPTS.value}?build={build}"
+    )
     # THEN it should return success
     assert response.status_code == status.HTTP_200_OK
     # AND response should contain lines
