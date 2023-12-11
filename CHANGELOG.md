@@ -3,6 +3,8 @@
 ## [unreleased]
 ### Changed
 - Updated version of external images used in GitHub actions
+- Updated Python version to v3.11 in tests GitHub action
+- Removed pytest from the package dependencies
 
 ## [1.4]
 ### Changed
