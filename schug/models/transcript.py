@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, List, Optional
 
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
-from pydantic import validator
+from pydantic import field_validator
 from schug.models.exon import ExonRead
 from sqlmodel import Field, Relationship, SQLModel
 
@@ -53,9 +53,10 @@ class EnsemblTranscript(BaseModel):
     refseq_mrna: str = PydanticField(None, alias="RefSeq mRNA ID")
     refseq_mrna_predicted: str = PydanticField(None, alias="RefSeq mRNA predicted ID")
     refseq_ncrna_predicted: str = PydanticField(None, alias="RefSeq ncRNA ID")
-    refseq_id: Optional[str] = None
+    refseq_id: Optional[str] = PydanticField(None, validate_default=True)
 
-    @validator("refseq_id", always=True)
+
+    @field_validator("refseq_id")
     def set_refseq_id(cls, _, values: dict) -> Optional[str]:
         order: List[str] = [
             "refseq_mrna",
