@@ -44,7 +44,6 @@ class EnsemblGene(BaseModel):
     hgnc_symbol: Optional[str] = PydanticField(None, alias="HGNC symbol")
     hgnc_id: Optional[int] = PydanticField(None, alias="HGNC ID")
 
-
     @field_validator("*", mode="before")
     def convert_to_none(cls, v):
         if v == "":

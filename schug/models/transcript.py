@@ -55,7 +55,6 @@ class EnsemblTranscript(BaseModel):
     refseq_ncrna_predicted: str = PydanticField(None, alias="RefSeq ncRNA ID")
     refseq_id: Optional[str] = PydanticField(None, validate_default=True)
 
-
     @field_validator("refseq_id")
     def set_refseq_id(cls, _, values: dict) -> Optional[str]:
         order: List[str] = [
