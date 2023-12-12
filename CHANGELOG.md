@@ -1,6 +1,6 @@
 # Change Log
 
-## [unreleased]
+## [1.5]
 ### Changed
 - Updated version of external images used in GitHub actions
 - Updated Python version to v3.11 in tests GitHub action
