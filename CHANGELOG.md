@@ -5,6 +5,8 @@
 - Updated version of external images used in GitHub actions
 - Updated Python version to v3.11 in tests GitHub action
 - Removed pytest from the package dependencies
+### Fixed
+- Converted deprecated Pydantic validators and Config into Pydantic 2 format
 
 ## [1.4]
 ### Changed
