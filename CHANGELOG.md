@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased]
+### Changed
+- Removed database-related code that is not currently in use
+
 ## [1.5]
 ### Changed
 - Updated version of external images used in GitHub actions
