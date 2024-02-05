@@ -10,7 +10,6 @@ schug = "schug.cli.base:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-sqlmodel = "^0.0.14"
 fastapi = "^0.104.1"
 typer = "^0.4.0"
 aiofiles = "^23.1.0"

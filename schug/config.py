@@ -12,7 +12,6 @@ class Settings(BaseSettings):
     """Settings for serving the schug app"""
 
     model_config = SettingsConfigDict(env_file=str(ENV_FILE))
-    db_uri: str = DEMO_DB
     host: str = "localhost"
     port: int = 8000
 

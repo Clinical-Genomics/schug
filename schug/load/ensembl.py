@@ -5,7 +5,6 @@ from typing import List, Optional
 from pydantic import parse_obj_as
 from schug.load.biomart import EnsemblBiomartClient
 from schug.models.common import Build
-from schug.models.exon import EnsemblExon
 
 LOG = logging.getLogger(__name__)
 
