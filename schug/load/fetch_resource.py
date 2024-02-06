@@ -65,7 +65,8 @@ def fetch_resource(url: str) -> List[str]:
 
 async def stream_resource(url: str) -> AsyncGenerator:
     """Stream a file from an external service"""
-    async with httpx.AsyncClient(timeout=None) as client:
+    timeout = httpx.Timeout(connect=None, read=None, write=None, pool=None)
+    async with httpx.AsyncClient(timeout=timeout) as client:
         async with client.stream("GET", url) as r:
             async for chunk in r.aiter_bytes():
                 yield chunk
