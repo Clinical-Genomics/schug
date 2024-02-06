@@ -1,4 +1,7 @@
 # Change Log
+## [unreleased]
+### Fixed
+- Revert to python 3.8 in Dockerfile to avoid `RuntimeError: can't start new thread` issue
 
 ## [1.5]
 ### Changed
