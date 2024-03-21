@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased]
+### Fixed
+- Replaced Biomart URL to resources in build 37; "https://feb2014.archive.ensembl.org/biomart/martservice?query=" -> "https://www.grch37,ensembl.org/biomart/martservice?query="
+
 ## [1.5.1]
 ### Fixed
 - Revert to python 3.8 in Dockerfile to avoid `RuntimeError: can't start new thread` issue

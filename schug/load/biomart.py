@@ -4,8 +4,9 @@ from typing import Dict, List, Optional
 import requests
 
 LOG = logging.getLogger(__name__)
-BIOMART_37_URL = "https://feb2014.archive.ensembl.org/biomart/martservice?query="
+BIOMART_37_URL = "https://grch37.ensembl.org/biomart/martservice?query="
 BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice?query="
+
 
 
 class EnsemblXML:
