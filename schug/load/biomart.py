@@ -8,7 +8,6 @@ BIOMART_37_URL = "https://grch37.ensembl.org/biomart/martservice?query="
 BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice?query="
 
 
-
 class EnsemblXML:
     """Class with functions to create xml query files for ensembl biomart
 
