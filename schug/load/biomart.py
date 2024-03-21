@@ -47,7 +47,7 @@ class EnsemblXML:
         xml_lines = [
             '<?xml version="1.0" encoding="UTF-8"?>',
             "<!DOCTYPE Query>",
-            f'<Query  virtualSchemaName = "default" formatter = "TSV" header = "{0 if bool is False else 1}" uniqueRows'
+            f'<Query  virtualSchemaName = "default" formatter = "TSV" header = "{0 if header is False else 1}" uniqueRows'
             ' = "0" count = "" datasetConfigVersion = "0.6" completionStamp = "1">',
             "",
             '\t<Dataset name = "hsapiens_gene_ensembl" interface = "default" >',
