@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.6]
 ### Changed
 - Updated a number of libraries to address security alerts
 
