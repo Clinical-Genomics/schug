@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.6.1]
 ### Fixed
 - Security issue related to starlette version by updating fastapi, starlette and some dependencies
 - Updated urlib to v.2.2.3 to address the `urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects` issue
