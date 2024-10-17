@@ -11,7 +11,7 @@ schug = "schug.cli.base:cli"
 [tool.poetry.dependencies]
 python = "^3.8"
 sqlmodel = "^0.0.14"
-fastapi = "0.111"
+fastapi = "^0.115.2"
 typer = "0.12.3"
 aiofiles = "^23.1.0"
 httpx = "^0.23.3"
@@ -22,7 +22,7 @@ importlib-resources = "^5.12.0"
 uvicorn = "^0.21.1"
 pydantic = "^2.5.2"
 pydantic-settings = "^2.1.0"
-starlette = "0.37.2"
+starlette = "0.40.0"
 
 [tool.poetry.dev-dependencies]
 mkdocs = "^1.2.2"

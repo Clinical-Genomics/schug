@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Fixed
+- Security issue related to starlette version by updating fastapi, starlette and some dependencies
+
 # [1.6]
 ### Changed
 - Updated a number of libraries to address security alerts
