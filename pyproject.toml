@@ -23,6 +23,8 @@ uvicorn = "^0.21.1"
 pydantic = "^2.5.2"
 pydantic-settings = "^2.1.0"
 starlette = "0.40.0"
+urllib3 = "^2.2.3"
+certifi = "2024.07.04"
 
 [tool.poetry.dev-dependencies]
 mkdocs = "^1.2.2"
