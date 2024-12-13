@@ -69,7 +69,9 @@ class EnsemblXML:
             value = filters[filter_name]
             if not isinstance(value, str):
                 value = ",".join(value)
-            formatted_lines.append(f'<Filter name = "{filter_name}" value = "{value}"/>')
+            formatted_lines.append(
+                f'<Filter name = "{filter_name}" value = "{value}"/>'
+            )
 
         return formatted_lines
 
