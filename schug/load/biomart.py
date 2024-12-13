@@ -5,8 +5,7 @@ import requests
 
 LOG = logging.getLogger(__name__)
 BIOMART_37_URL = "https://feb2014.archive.ensembl.org/biomart/martservice?query="
-BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice?query="
-
+BIOMART_38_URL = "https://may2024.archive.ensembl.org/biomart/martservice?query="
 
 class EnsemblXML:
     """Class with functions to create xml query files for ensembl biomart
