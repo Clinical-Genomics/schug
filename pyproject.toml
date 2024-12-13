@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "schug"
-version = "1.6.1"
+version = "1.6.2"
 description = "Keep track of genes, transcripts and exons from different sources"
 authors = ["moonso <mans.magnusson@scilifelab.se>"]
 readme = "README.md"
