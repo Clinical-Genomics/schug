@@ -2,6 +2,10 @@
 
 # [unreleased]
 ### Fixed
+- Some exons are missing when downloading build 38 data using Ensembl v.113 (Oct 2024). Using v.112 (May 2024) until the problem is fixed. Build 37 not affected.
+
+# [1.6.1]
+### Fixed
 - Security issue related to starlette version by updating fastapi, starlette and some dependencies
 - Updated urlib to v.2.2.3 to address the `urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects` issue
 - Updated certifi to v.2024.7.4 to address the `Certifi removes GLOBALTRUST root certificate` issue
