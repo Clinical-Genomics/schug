@@ -7,6 +7,7 @@ LOG = logging.getLogger(__name__)
 BIOMART_37_URL = "https://feb2014.archive.ensembl.org/biomart/martservice?query="
 BIOMART_38_URL = "https://may2024.archive.ensembl.org/biomart/martservice?query="
 
+
 class EnsemblXML:
     """Class with functions to create xml query files for ensembl biomart
 
@@ -68,9 +69,7 @@ class EnsemblXML:
             value = filters[filter_name]
             if not isinstance(value, str):
                 value = ",".join(value)
-            formatted_lines.append(
-                f'<Filter name = "{filter_name}" value = "{value}"/>'
-            )
+            formatted_lines.append(f'<Filter name = "{filter_name}" value = "{value}"/>')
 
         return formatted_lines
 
