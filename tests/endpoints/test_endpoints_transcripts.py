@@ -6,6 +6,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock.plugin import MockerFixture
 from requests.models import Response
+
 from schug.demo import TRANSCRIPTS_37_FILE_PATH, TRANSCRIPTS_38_FILE_PATH
 from schug.models.common import Build
 
@@ -28,7 +29,14 @@ def test_ensembl_transcripts_37(
 
     # GIVEN a patched response from Ensembl Biomart
     tx_lines: TextIOWrapper = file_handler(path)
-    mocker.patch("schug.endpoints.transcripts.stream_resource", return_value=tx_lines)
+
+    async def mock_async_generator(*args, **kwargs):
+        for line in tx_lines:
+            yield line
+
+    mocker.patch(
+        "schug.endpoints.transcripts.stream_resource", side_effect=mock_async_generator
+    )
 
     # WHEN sending a request to Biomart to retrieve transcripts in the given build
     response: Response = client.get(
