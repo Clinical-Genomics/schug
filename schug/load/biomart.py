@@ -44,7 +44,6 @@ class EnsemblXML:
         filters: dict, attributes: List[str], header: Optional[bool]
     ) -> str:
         """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
-        LOG.warning(f"header is -->{header}")
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
         xml_lines = [

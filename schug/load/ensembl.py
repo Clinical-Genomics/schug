@@ -26,7 +26,10 @@ def fetch_ensembl_biomart(
     build = build or "37"
 
     client = EnsemblBiomartClient(
-        build=build, filters=filters, attributes=attributes, header="1" in filters
+        build=build,
+        filters=filters,
+        attributes=attributes,
+        header="1" in filters["chromosome_name"],
     )
     LOG.info("Selecting attributes: %s", ", ".join(attributes))
     LOG.info("Use filter: %s", filters)
