@@ -1,8 +1,10 @@
 # Change Log
 
-# [1.6.2]
-###
+# [unreleased]
+### Changed
 - Do not download duplicated lines from Ensembl BioMart
+- Update Python version to v3.12 in Dockerfile
+- Update Python version in pyproject.toml
 ### Fixed
 - Download data from Ensembl BioMart chromosome-wise, to avoid missing exons, for instance (see issue #74)
 
