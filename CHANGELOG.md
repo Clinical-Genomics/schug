@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.7]
 ### Changed
 - Do not download duplicated lines from Ensembl BioMart
 - Update Python version to v3.12 in Dockerfile
