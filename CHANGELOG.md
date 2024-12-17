@@ -8,6 +8,10 @@
 ### Fixed
 - Download data from Ensembl BioMart chromosome-wise, to avoid missing exons, for instance (see issue #74)
 
+# [1.6.2]
+### Fixed
+- Some exons are missing when downloading build 38 data using Ensembl v.113 (Oct 2024). Using v.112 (May 2024) until the problem is fixed. Build 37 not affected.
+
 # [1.6.1]
 ### Fixed
 - Security issue related to starlette version by updating fastapi, starlette and some dependencies
