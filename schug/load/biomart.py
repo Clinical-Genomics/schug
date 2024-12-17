@@ -5,7 +5,7 @@ import requests
 
 LOG = logging.getLogger(__name__)
 BIOMART_37_URL = "https://feb2014.archive.ensembl.org/biomart/martservice?query="
-BIOMART_38_URL = "https://may2024.archive.ensembl.org/biomart/martservice?query="
+BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice/?query="
 
 
 class EnsemblXML:
@@ -40,15 +40,17 @@ class EnsemblXML:
         }
 
     @staticmethod
-    def create_biomart_xml(filters: dict, attributes: List[str], header: bool) -> str:
+    def create_biomart_xml(
+        filters: dict, attributes: List[str], header: Optional[bool]
+    ) -> str:
         """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
         xml_lines = [
             '<?xml version="1.0" encoding="UTF-8"?>',
             "<!DOCTYPE Query>",
-            f'<Query  virtualSchemaName = "default" formatter = "TSV" header = "{0 if bool is False else 1}" uniqueRows'
-            ' = "0" count = "" datasetConfigVersion = "0.6" completionStamp = "1">',
+            f'<Query  virtualSchemaName = "default" formatter = "TSV" header = "{0 if header is False else 1}" uniqueRows'
+            ' = "1" count = "0" datasetConfigVersion = "0.6" completionStamp = "1">',
             "",
             '\t<Dataset name = "hsapiens_gene_ensembl" interface = "default" >',
         ]

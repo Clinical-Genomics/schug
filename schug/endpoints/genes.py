@@ -4,15 +4,16 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import StreamingResponse
 from pydantic import parse_obj_as
+from sqlalchemy.exc import NoResultFound
+from sqlmodel import Session, select
+
 from schug.database.genes import create_gene_item
 from schug.database.session import get_session
 from schug.endpoints.http_exceptions import SchugHttpException
-from schug.load.ensembl import fetch_ensembl_genes
+from schug.load.ensembl import CHROMOSOMES, fetch_ensembl_genes
 from schug.load.fetch_resource import stream_resource
 from schug.models import EnsemblGene, Gene, GeneCreate, GeneRead
 from schug.models.common import Build
-from sqlalchemy.exc import NoResultFound
-from sqlmodel import Session, select
 
 router = APIRouter()
 
@@ -107,7 +108,17 @@ def read_gene_hgnc_symbol(
 async def ensembl_genes(build: Build):
     """A proxy to the Ensembl Biomart that retrieves genes in a specific genome build."""
 
-    ensembl_client: EnsemblBiomartClient = fetch_ensembl_genes(build=build)
-    url: str = ensembl_client.build_url(xml=ensembl_client.xml)
+    async def chromosome_stream():
+        for chrom in CHROMOSOMES:
+            print(f"Retrieving genes from chromosome: {chrom}")
+            ensembl_client: EnsemblBiomartClient = fetch_ensembl_genes(
+                build=build, chromosomes=[chrom]
+            )
+            url: str = ensembl_client.build_url(xml=ensembl_client.xml)
 
-    return StreamingResponse(stream_resource(url), media_type="text/tsv")
+            # Stream each chunk from the resource
+            async for chunk in stream_resource(url):
+                yield chunk
+
+    # Return the StreamingResponse with the asynchronous generator
+    return StreamingResponse(chromosome_stream(), media_type="text/tsv")

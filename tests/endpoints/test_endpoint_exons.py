@@ -6,6 +6,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock.plugin import MockerFixture
 from requests.models import Response
+
 from schug.demo import EXONS_37_FILE_PATH, EXONS_38_FILE_PATH
 from schug.models.common import Build
 
@@ -27,7 +28,14 @@ def test_ensembl_exons(
     """Test downloading the exons file in both builds using the Ensembl Biomart."""
     # GIVEN a patched response from Ensembl Biomart
     exons_lines: TextIOWrapper = file_handler(path)
-    mocker.patch("schug.endpoints.exons.stream_resource", return_value=exons_lines)
+
+    async def mock_async_generator(*args, **kwargs):
+        for line in exons_lines:
+            yield line
+
+    mocker.patch(
+        "schug.endpoints.exons.stream_resource", side_effect=mock_async_generator
+    )
 
     # WHEN sending a request to Biomart to retrieve exons in the given build
     response: Response = client.get(f"{endpoints.ENSEMBL_EXONS.value}?build={build}")

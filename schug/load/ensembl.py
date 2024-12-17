@@ -3,6 +3,7 @@ import logging
 from typing import List, Optional
 
 from pydantic import parse_obj_as
+
 from schug.load.biomart import EnsemblBiomartClient
 from schug.models.common import Build
 from schug.models.exon import EnsemblExon
@@ -19,19 +20,17 @@ CHROMOSOMES_38 = AUTOSOMES + ["X", "Y", "M"]
 
 
 def fetch_ensembl_biomart(
-    attributes: List[str], filters: dict, build=None
+    attributes: List[str], filters: dict, build: Optional[str] = None
 ) -> EnsemblBiomartClient:
-    """Fetch data from ensembl biomart
-    Args:
-        attributes(list): List of selected attributes
-        filters(dict): Select what filters to use
-        build(str): '37' or '38'
-    Returns:
-        client(EnsemblBiomartClient)
-    """
+    """Fetch data from ensembl biomart."""
     build = build or "37"
 
-    client = EnsemblBiomartClient(build=build, filters=filters, attributes=attributes)
+    client = EnsemblBiomartClient(
+        build=build,
+        filters=filters,
+        attributes=attributes,
+        header="1" in filters["chromosome_name"],
+    )
     LOG.info("Selecting attributes: %s", ", ".join(attributes))
     LOG.info("Use filter: %s", filters)
 
