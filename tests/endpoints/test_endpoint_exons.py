@@ -31,7 +31,7 @@ def test_ensembl_exons(
 
     async def mock_async_generator(*args, **kwargs):
         for line in exons_lines:
-            yield line
+            yield line.encode("utf-8")
 
     mocker.patch(
         "schug.endpoints.exons.stream_resource", side_effect=mock_async_generator

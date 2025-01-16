@@ -42,7 +42,7 @@ def test_ensembl_genes(
 
     async def mock_async_generator(*args, **kwargs):
         for line in gene_lines:
-            yield line
+            yield line.encode("utf-8")
 
     mocker.patch(
         "schug.endpoints.genes.stream_resource", side_effect=mock_async_generator
