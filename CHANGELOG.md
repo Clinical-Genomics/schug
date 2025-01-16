@@ -1,6 +1,6 @@
 # Change Log
 
-# [1.7.1]
+# [unreleased]
 ### Fixed
 - Do not include `[success]` lines in the streamed outfiles
 
