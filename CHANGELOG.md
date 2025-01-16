@@ -1,5 +1,9 @@
 # Change Log
 
+# [1.7.1]
+### Fixed
+- Do not include `[success]` lines in the streamed outfiles
+
 # [1.7]
 ### Changed
 - Do not download duplicated lines from Ensembl BioMart
