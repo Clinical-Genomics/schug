@@ -32,7 +32,7 @@ def test_ensembl_transcripts_37(
 
     async def mock_async_generator(*args, **kwargs):
         for line in tx_lines:
-            yield line
+            yield line.encode("utf-8")
 
     mocker.patch(
         "schug.endpoints.transcripts.stream_resource", side_effect=mock_async_generator
