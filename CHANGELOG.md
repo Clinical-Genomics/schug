@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.8]
 ### Changed
 - Use custom issue and pull request templates in this repository
 - Remove old code once used for downloading data from Ensembl
