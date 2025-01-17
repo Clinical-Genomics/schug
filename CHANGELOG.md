@@ -1,6 +1,8 @@
 # Change Log
 
 # [unreleased]
+### Changed
+- Use custom issue and pull request templates in this repository
 ### Fixed
 - Do not include `[success]` lines in the streamed outfiles
 
