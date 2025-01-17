@@ -117,7 +117,7 @@ class EnsemblBiomartClient:
         )
 
         LOG.info("Setting up ensembl biomart client with server %s", self.server)
-        
+
     def build_url(self, xml: str):
         """Build a query url"""
         return "".join([self.server, xml])
