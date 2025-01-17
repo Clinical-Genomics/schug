@@ -38,7 +38,7 @@ async def ensembl_exons(build: Build):
 
             # Stream each chunk from the resource
             async for chunk in stream_resource(url):
-                yield chunk
+                yield chunk.replace(b"[success]\n", b"")
 
     # Return the StreamingResponse with the asynchronous generator
     return StreamingResponse(chromosome_stream(), media_type="text/tsv")

@@ -117,48 +117,7 @@ class EnsemblBiomartClient:
         )
 
         LOG.info("Setting up ensembl biomart client with server %s", self.server)
-        self.query = self._query_service(xml=self.xml)
 
     def build_url(self, xml: str):
         """Build a query url"""
         return "".join([self.server, xml])
-
-    def _query_service(self, xml: str):
-        """Query the Ensembl biomart service and yield the resulting lines
-        Accepts:
-            xml(str): an xml formatted query, as described here:
-                https://grch37.ensembl.org/info/data/biomart/biomart_perl_api.html
-            filters(dict): A dictionary w
-               attributes(list): A list with attributes to use
-            Yields:
-                biomartline
-        """
-
-        url = self.build_url(xml)
-        try:
-            with requests.get(url, stream=True) as req:
-                for line in req.iter_lines():
-                    yield line.decode("utf-8")
-        except Exception as ex:
-            LOG.info("Error downloading data from biomart: %s", ex)
-            raise ex
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        success = False
-        if self.header:
-            self.header = False
-            return self.xml_creator.create_header(self.attributes)
-
-        line = next(self.query)
-        if line.startswith("["):
-            if "success" in line:
-                success = True
-            if not success:
-                raise SyntaxError("ensembl request is incomplete")
-            raise StopIteration
-        if not line:
-            raise StopIteration
-        return line
