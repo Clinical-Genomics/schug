@@ -3,8 +3,9 @@
 # [unreleased]
 ### Changed
 - Use custom issue and pull request templates in this repository
+- Remove old code once used for downloading data from Ensembl
 ### Fixed
-- Do not include `[success]` lines in the streamed outfiles
+- Do not include `[success]` lines in the streamed outfiles: genes, transcripts and exons
 
 # [1.7]
 ### Changed
