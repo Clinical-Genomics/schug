@@ -38,7 +38,9 @@ def test_ensembl_exons(
     )
 
     # WHEN sending a request to Biomart to retrieve exons in the given build
-    response: Response = client.get(f"{endpoints.ENSEMBL_EXONS.value}?build={build}")
+    response: Response = client.get(
+        f"{endpoints.ENSEMBL_EXONS.value}?build={build}&max_retries=10"
+    )
 
     # THEN it should return success
     assert response.status_code == status.HTTP_200_OK
