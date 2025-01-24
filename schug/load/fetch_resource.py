@@ -64,7 +64,7 @@ def fetch_resource(url: str) -> List[str]:
     return data
 
 
-async def stream_resource(url: str, max_retries: int = 5) -> AsyncGenerator:
+async def stream_resource(url: str, max_retries: int) -> AsyncGenerator:
     """Stream a file from an external service with retries for failed chunks."""
     retries = 0
     while retries < max_retries:

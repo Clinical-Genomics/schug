@@ -41,7 +41,7 @@ def read_transcript_db_id(
 
 
 @router.get("/ensembl_transcripts/", response_class=StreamingResponse)
-async def ensembl_transcripts(build: Build):
+async def ensembl_transcripts(build: Build, max_retries: int = 5):
     """A proxy to the Ensembl Biomart that retrieves transcripts in a specific genome build."""
 
     async def chromosome_stream():
@@ -53,7 +53,7 @@ async def ensembl_transcripts(build: Build):
             url: str = ensembl_client.build_url(xml=ensembl_client.xml)
 
             # Stream each chunk from the resource
-            async for chunk in stream_resource(url):
+            async for chunk in stream_resource(url=url, max_retries=max_retries):
                 yield chunk.replace(b"[success]\n", b"")
 
     # Return the StreamingResponse with the asynchronous generator
