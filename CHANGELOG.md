@@ -1,9 +1,5 @@
 # Change Log
 
-# [unreleased]
-### Changed
-- Added retry logic to stream_resource to handle failed chunk downloads with a configurable number of attempts and error handling.
-
 # [1.8]
 ### Changed
 - Use custom issue and pull request templates in this repository
