@@ -33,12 +33,10 @@ def test_ensembl_exons(
         for line in exons_lines:
             yield line.encode("utf-8")
 
-    mocker.patch(
-        "schug.endpoints.exons.stream_resource", side_effect=mock_async_generator
-    )
+    mocker.patch("schug.endpoints.exons.stream_resource", side_effect=mock_async_generator)
 
     # WHEN sending a request to Biomart to retrieve exons in the given build
-    response: Response = client.get(f"{endpoints.ENSEMBL_EXONS.value}?build={build}")
+    response: Response = client.get(f"{endpoints.ENSEMBL_EXONS.value}?build={build}&max_retries=10")
 
     # THEN it should return success
     assert response.status_code == status.HTTP_200_OK
