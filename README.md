@@ -52,6 +52,22 @@ Once having set up an instance of Schug, you can use the following endpoints:
 
    Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38' > exons_GRCh38.txt`
 
+## Issues While Downloading Genes, Transcripts, or Exons
+
+You might encounter errors while downloading genes, transcripts, or exons, such as the following error:
+
+```
+httpx.RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)
+```
+
+This error often occurs when the external service prematurely closes the connection during data streaming. To address this issue, you can try increasing the `max_tries` parameter in your request, which otherwise defaults to 5. Increasing the number of retries can help handle intermittent network issues or temporary interruptions from the service.
+
+Here’s an example of how to modify the request:
+
+```
+curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=37&max_retries=10' > exons_GRCh37.txt`
+```
+
 ## What is left to do?
 
 The basic structure is outlined and implemented, however there are many details left to implement before
