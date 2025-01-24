@@ -13,7 +13,7 @@ from schug.models.common import Build
 from schug.models.transcript import TranscriptReadWithExons
 
 router = APIRouter()
-
+"""
 
 @router.get("/", response_model=List[TranscriptRead])
 def read_transcripts(
@@ -38,6 +38,7 @@ def read_transcript_db_id(
             status_code=status.HTTP_404_NOT_FOUND, detail="Transcript not found"
         )
     return transcript
+"""
 
 
 @router.get("/ensembl_transcripts/", response_class=StreamingResponse)

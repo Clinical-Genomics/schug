@@ -3,6 +3,7 @@
 # [unreleased]
 ### Changed
 - Added retry logic to stream_resource to handle failed chunk downloads with a configurable number of attempts and error handling.
+- Commented out in the code all endpoints that are not yet functioning.
 
 # [1.8]
 ### Changed
