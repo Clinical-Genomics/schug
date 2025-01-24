@@ -4,6 +4,7 @@ import zlib
 from typing import AsyncGenerator, List
 from urllib.request import urlopen
 from urllib.response import addinfourl
+import time
 
 import httpx
 import requests
@@ -63,9 +64,30 @@ def fetch_resource(url: str) -> List[str]:
     return data
 
 
-async def stream_resource(url: str) -> AsyncGenerator:
-    """Stream a file from an external service"""
-    async with httpx.AsyncClient(timeout=None) as client:
-        async with client.stream("GET", url) as r:
-            async for chunk in r.aiter_bytes():
-                yield chunk
+async def stream_resource(url: str, max_retries: int = 5) -> AsyncGenerator:
+    """Stream a file from an external service with retries for failed chunks."""
+    retries = 0
+    while retries < max_retries:
+        try:
+            async with httpx.AsyncClient(timeout=None) as client:
+                async with client.stream("GET", url) as r:
+                    r.raise_for_status()  # Ensure successful response
+                    async for chunk in r.aiter_bytes():
+                        yield chunk
+            # If successful, break out of the loop
+            break
+        except (httpx.RequestError, httpx.HTTPStatusError) as e:
+            print(f"Error occurred: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+        # Increment retry count and delay before retrying
+        retries += 1
+        if retries < max_retries:
+            print(f"Retrying... ({retries}/{max_retries})")
+            time.sleep(1)  # Sleep for 1 second before retrying (you can adjust this)
+        else:
+            print("Max retries reached, failing.")
+            raise httpx.HTTPStatusError(
+                "Failed after multiple attempts", request=None, response=None
+            )
