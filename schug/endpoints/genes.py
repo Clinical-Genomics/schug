@@ -17,7 +17,7 @@ from schug.models.common import Build
 
 router = APIRouter()
 
-
+"""
 @router.get("/", response_model=List[GeneRead])
 def read_genes(
     *,
@@ -102,6 +102,7 @@ def read_gene_hgnc_symbol(
     except NoResultFound:
         SchugHttpException.error_404(result=None, query=hgnc_symbol)
     return gene
+"""
 
 
 @router.get("/ensembl_genes/", response_class=StreamingResponse)

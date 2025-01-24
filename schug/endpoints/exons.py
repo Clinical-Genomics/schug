@@ -12,7 +12,7 @@ from schug.models.common import Build
 
 router = APIRouter()
 
-
+"""
 @router.get("/", response_model=List[ExonRead])
 def read_exons(
     *,
@@ -22,6 +22,7 @@ def read_exons(
 ):
     exons = session.exec(select(Exon).offset(offset).limit(limit)).all()
     return exons
+"""
 
 
 @router.get("/ensembl_exons/", response_class=StreamingResponse)
