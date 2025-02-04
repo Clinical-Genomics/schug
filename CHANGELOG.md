@@ -2,7 +2,7 @@
 
 # [unreleased]
 ### Added
-- An additional `Gene type` column when downloading genes to file. This allows downloading of non-coding genes
+- An additional `Gene Biotype` column when downloading genes to file. This allows downloading of non-coding genes
 
 # [1.9]
 ### Changed
