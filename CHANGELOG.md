@@ -4,7 +4,8 @@
 ### Added
 - An additional `Gene Biotype` (build 37) or `Gene type` (build 38) column when downloading genes to file. This allows downloading of non-coding genes
 ### Changed
-- demo files `genes_37.tsv` and `genes_38.tsv` to reflect latest changes in genes downloaded files
+- Demo files `genes_37.tsv` and `genes_38.tsv` to reflect latest changes in genes downloaded files
+- Demo files contain now lines from the following genes: MTHFR, DHFR, FOLR1, SLC46A1, MT-TP (better integration with chanjo tests)
 
 # [1.9]
 ### Changed
