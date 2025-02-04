@@ -37,7 +37,7 @@ class EnsemblXML:
             "end_position": "Gene end (bp)",
             "hgnc_symbol": "HGNC symbol",
             "hgnc_id": "HGNC ID",
-            "gene_type": "Gene type",
+            "gene_biotype": "Gene type",
         }
 
     @staticmethod
