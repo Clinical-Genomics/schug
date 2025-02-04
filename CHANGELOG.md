@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Added
+- An additional `Gene type` column when downloading genes to file. This allows downloading of non-coding genes
+
 # [1.9]
 ### Changed
 - Added retry logic to stream_resource to handle failed chunk downloads with a configurable number of attempts and error handling.

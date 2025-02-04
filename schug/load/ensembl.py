@@ -51,6 +51,7 @@ def fetch_ensembl_genes(
         "ensembl_gene_id",
         "hgnc_symbol",
         "hgnc_id",
+        "gene_biotype",
     ]
 
     filters = {"chromosome_name": chromosomes}
