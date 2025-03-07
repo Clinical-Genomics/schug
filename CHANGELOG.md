@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Fixed
+- Refactor resources streaming to avoid timeout issues
+
 # [1.10]
 ### Added
 - An additional `Gene Biotype` (build 37) or `Gene type` (build 38) column when downloading genes to file. This allows downloading of non-coding genes
