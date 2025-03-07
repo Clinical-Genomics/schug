@@ -2,7 +2,7 @@
 
 # [unreleased]
 ### Fixed
-- Refactor resources streaming to avoid timeout issues
+- Refactor Ensembl data downloads to avoid timeout issues
 
 # [1.10]
 ### Added
