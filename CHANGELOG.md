@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.10.1]
 ### Fixed
 - Refactor Ensembl data downloads to avoid timeout issues
 
