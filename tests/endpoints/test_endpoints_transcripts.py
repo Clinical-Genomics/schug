@@ -24,7 +24,7 @@ def test_ensembl_transcripts(
 
     # GIVEN a patched response from Ensembl Biomart
     mock_ensembl_client = mocker.MagicMock()
-    mock_ensembl_client.build_url.return_value = "http://mocked_url"
+    mock_ensembl_client.build_url.return_value = "https://mocked_url"
 
     mocker.patch(
         "schug.endpoints.transcripts.fetch_ensembl_transcripts",
