@@ -3,8 +3,9 @@ from typing import TYPE_CHECKING, List, Optional
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
 from pydantic import field_validator
-from schug.models.exon import ExonRead
 from sqlmodel import Field, Relationship, SQLModel
+
+from schug.models.exon import ExonRead
 
 from .link_tables import ExonTranscriptLink
 

@@ -1,3 +1,4 @@
+import urllib.request
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -52,10 +53,12 @@ async def ensembl_transcripts(build: Build, max_retries: int = 5):
                 build=build, chromosomes=[chrom]
             )
             url: str = ensembl_client.build_url(xml=ensembl_client.xml)
-
-            # Stream each chunk from the resource
-            async for chunk in stream_resource(url=url, max_retries=max_retries):
-                yield chunk.replace(b"[success]\n", b"")
+            encoded_url = urllib.parse.quote(url, safe=":/?=&")
+            with urllib.request.urlopen(encoded_url) as response:
+                for line in response:
+                    if line.startswith(b"[success]"):
+                        continue
+                    yield line
 
     # Return the StreamingResponse with the asynchronous generator
     return StreamingResponse(chromosome_stream(), media_type="text/tsv")

@@ -3,11 +3,12 @@ from enum import Enum
 import pytest
 from _io import TextIOWrapper
 from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine
+
 from schug.database.session import get_session
 from schug.main import app
 from schug.models.common import Build
 from schug.models.gene import Gene
-from sqlmodel import Session, SQLModel, create_engine
 
 TEST_DB = "sqlite:///./test.db"
 DEMO_CONNECT_ARGS = {"check_same_thread": False}
@@ -20,7 +21,7 @@ class Endpoints(str, Enum):
 
     GENES = "/genes/"
     ENSEMBL_GENES = "/genes/ensembl_genes/"
-    ENSEMBL_TRANCRIPTS = "/transcripts/ensembl_transcripts/"
+    ENSEMBL_TRANSCRIPTS = "/transcripts/ensembl_transcripts/"
     ENSEMBL_EXONS = "/exons/ensembl_exons/"
 
 

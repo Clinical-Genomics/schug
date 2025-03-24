@@ -1,10 +1,10 @@
 import logging
+import time
 import urllib
 import zlib
 from typing import AsyncGenerator, List
 from urllib.request import urlopen
 from urllib.response import addinfourl
-import time
 
 import httpx
 import requests

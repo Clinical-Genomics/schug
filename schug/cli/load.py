@@ -3,6 +3,7 @@ from typing import List, Optional
 
 import typer
 from pydantic import parse_obj_as
+
 from schug.database.genes import create_gene_item
 from schug.load.ensembl import (
     fetch_ensembl_exons,

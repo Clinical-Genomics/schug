@@ -1,5 +1,6 @@
 import typer
 import uvicorn
+
 from schug.cli import fetch, load
 from schug.config import settings
 from schug.load.demo import load_demo

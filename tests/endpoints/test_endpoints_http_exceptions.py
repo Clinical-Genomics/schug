@@ -1,5 +1,4 @@
 import pytest
-
 from fastapi import HTTPException
 
 from schug.endpoints.http_exceptions import SchugHttpException
