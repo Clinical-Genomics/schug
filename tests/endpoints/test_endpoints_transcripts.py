@@ -34,7 +34,7 @@ def test_ensembl_transcripts(
     # Properly mock urlopen
     mock_urlopen = mocker.patch("urllib.request.urlopen")
     mock_urlopen.return_value.__enter__.return_value = io.BytesIO(
-        b"mocked transcript line 1\nmocked transcript line 2\n"
+        b"mocked transcript line 1\nmocked transcript line 2\n[success]\n"
     )
 
     # WHEN sending a request to Biomart to retrieve transcripts in the given build
@@ -50,3 +50,5 @@ def test_ensembl_transcripts(
         assert len(lines) > 0
         assert "mocked transcript line 1" in lines
         assert "mocked transcript line 2" in lines
+
+        assert "[success]" not in lines

@@ -33,7 +33,7 @@ def test_ensembl_genes(
     # Properly mock urlopen
     mock_urlopen = mocker.patch("urllib.request.urlopen")
     mock_urlopen.return_value.__enter__.return_value = io.BytesIO(
-        b"mocked gene line 1\nmocked gene line 2\n"
+        b"mocked gene line 1\nmocked gene line 2\n[success]\n"
     )
 
     # WHEN sending a request to Biomart to retrieve genes in the given build
@@ -49,3 +49,5 @@ def test_ensembl_genes(
         assert len(lines) > 0
         assert "mocked gene line 1" in lines
         assert "mocked gene line 2" in lines
+
+        assert "[success]" not in lines

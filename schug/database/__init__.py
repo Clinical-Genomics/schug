@@ -1,5 +1,6 @@
-from schug.config import DEMO_DB, settings
 from sqlmodel import SQLModel, create_engine
+
+from schug.config import DEMO_DB, settings
 
 DEMO_CONNECT_ARGS: dict = {"check_same_thread": False}
 

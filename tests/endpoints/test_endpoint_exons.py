@@ -33,7 +33,7 @@ def test_ensembl_exons(
     # Properly mock urlopen
     mock_urlopen = mocker.patch("urllib.request.urlopen")
     mock_urlopen.return_value.__enter__.return_value = io.BytesIO(
-        b"mocked exon line 1\nmocked exon line 2\n"
+        b"mocked exon line 1\nmocked exon line 2\n[success]\n"
     )
 
     # WHEN sending a request to Biomart to retrieve exons in the given build
@@ -49,3 +49,5 @@ def test_ensembl_exons(
         assert len(lines) > 0
         assert "mocked exon line 1" in lines
         assert "mocked exon line 2" in lines
+
+        assert "[success]" not in lines

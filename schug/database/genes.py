@@ -1,5 +1,4 @@
 from schug.database.session import get_session
-
 from schug.models.gene import EnsemblGene, Gene, into_gene
 
 

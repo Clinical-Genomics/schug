@@ -120,6 +120,8 @@ async def ensembl_genes(build: Build):
             encoded_url = urllib.parse.quote(url, safe=":/?=&")
             with urllib.request.urlopen(encoded_url) as response:
                 for line in response:
+                    if line.startswith(b"[success]"):
+                        continue
                     yield line
 
     # Return the StreamingResponse with the asynchronous generator

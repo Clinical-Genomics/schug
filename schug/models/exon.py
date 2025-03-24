@@ -2,8 +2,9 @@ from typing import TYPE_CHECKING, List, Optional
 
 from pydantic import BaseModel
 from pydantic import Field as PydanticField
-from schug.models.link_tables import ExonTranscriptLink
 from sqlmodel import Field, Relationship, SQLModel
+
+from schug.models.link_tables import ExonTranscriptLink
 
 if TYPE_CHECKING:
     from .transcript import Transcript

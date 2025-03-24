@@ -1,4 +1,5 @@
 from fastapi import FastAPI, status
+
 from schug import __version__
 
 from .endpoints import exons, genes, transcripts
