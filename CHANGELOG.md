@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Changed
+- Sleep 5 seconds before each Biomart request
+
 # [1.11]
 ### Changed
 - Reintroduce `[success]` lines in the streamed content, to simplify checks downstream
