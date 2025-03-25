@@ -1,4 +1,4 @@
-import time
+import asyncio
 import urllib.request
 from typing import List
 
@@ -42,7 +42,7 @@ async def ensembl_exons(build: Build):
             with urllib.request.urlopen(encoded_url) as response:
                 for line in response:
                     yield line
-            time.sleep(5)
+            await asyncio.sleep(5)
 
     # Return the StreamingResponse with the asynchronous generator
     return StreamingResponse(chromosome_stream(), media_type="text/tsv")
