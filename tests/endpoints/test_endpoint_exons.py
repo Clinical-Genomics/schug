@@ -49,5 +49,4 @@ def test_ensembl_exons(
         assert len(lines) > 0
         assert "mocked exon line 1" in lines
         assert "mocked exon line 2" in lines
-
-        assert "[success]" not in lines
+        assert "[success]" in lines

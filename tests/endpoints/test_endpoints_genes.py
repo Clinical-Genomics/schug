@@ -49,5 +49,4 @@ def test_ensembl_genes(
         assert len(lines) > 0
         assert "mocked gene line 1" in lines
         assert "mocked gene line 2" in lines
-
-        assert "[success]" not in lines
+        assert "[success]" in lines

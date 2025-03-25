@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Changed
+- Reintroduce `[success]` lines in the streamed content, to simplify checks downstream
+
 # [1.10.1]
 ### Fixed
 - Refactor Ensembl data downloads to avoid timeout issues
