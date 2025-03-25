@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.11]
 ### Changed
 - Reintroduce `[success]` lines in the streamed content, to simplify checks downstream
 
