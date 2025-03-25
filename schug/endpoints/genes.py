@@ -1,3 +1,4 @@
+import asyncio
 import csv
 import urllib.request
 from typing import List, Optional
@@ -121,6 +122,7 @@ async def ensembl_genes(build: Build):
             with urllib.request.urlopen(encoded_url) as response:
                 for line in response:
                     yield line
+            await asyncio.sleep(5)
 
     # Return the StreamingResponse with the asynchronous generator
     return StreamingResponse(chromosome_stream(), media_type="text/tsv")

@@ -1,3 +1,4 @@
+import asyncio
 import io
 from typing import Callable, Type
 
@@ -35,6 +36,8 @@ def test_ensembl_exons(
     mock_urlopen.return_value.__enter__.return_value = io.BytesIO(
         b"mocked exon line 1\nmocked exon line 2\n[success]\n"
     )
+    # GIVEN a mocked interval between requests to Biomart
+    mocker.patch("asyncio.sleep")
 
     # WHEN sending a request to Biomart to retrieve exons in the given build
     with client.stream(

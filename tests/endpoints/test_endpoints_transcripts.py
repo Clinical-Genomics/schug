@@ -1,3 +1,4 @@
+import asyncio
 import io
 from typing import Callable, Type
 
@@ -30,6 +31,8 @@ def test_ensembl_transcripts(
         "schug.endpoints.transcripts.fetch_ensembl_transcripts",
         return_value=mock_ensembl_client,
     )
+    # GIVEN a mocked interval between requests to Biomart
+    mocker.patch("asyncio.sleep")
 
     # Properly mock urlopen
     mock_urlopen = mocker.patch("urllib.request.urlopen")
