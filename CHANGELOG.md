@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Fixed
+- Updated `gunicorn` and `jinja2` libs, among others, to address security vulnerabilities
+
 # [1.11]
 ### Changed
 - Reintroduce `[success]` lines in the streamed content, to simplify checks downstream
