@@ -1,6 +1,8 @@
 # Change Log
 
 # [unreleased]
+### Changed
+- Download build 37 data using the `https://grch37.ensembl.org/` BioMart, since the `https://feb2014.archive.ensembl.org` archive is offline now
 ### Fixed
 - Updated `gunicorn` and `jinja2` libs, among others, to address security vulnerabilities
 
