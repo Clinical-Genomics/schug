@@ -1,5 +1,12 @@
 # Change Log
 
+# [unreleased]
+### Changed
+- Updated libraries
+### Fixed
+- Deprecated poetry.dev-dependencies on pyproject.toml file
+
+
 # [1.12]
 ### Changed
 - Download build 37 data using the `https://grch37.ensembl.org/` BioMart, since the `https://feb2014.archive.ensembl.org` archive is offline now
