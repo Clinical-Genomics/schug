@@ -1,6 +1,8 @@
 # Change Log
 
 # [unreleased]
+### Added
+- MIT License file
 ### Changed
 - Updated libraries
 ### Fixed
