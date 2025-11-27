@@ -3,11 +3,11 @@
 # [unreleased]
 ### Added
 - MIT License file
+- Transcript length in the exported file
 ### Changed
 - Updated libraries
 ### Fixed
 - Deprecated poetry.dev-dependencies on pyproject.toml file
-
 
 # [1.12]
 ### Changed
