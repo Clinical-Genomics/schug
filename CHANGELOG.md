@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.13]
 ### Added
 - MIT License file
 - Transcript length in the exported file
