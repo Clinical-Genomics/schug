@@ -76,7 +76,6 @@ def fetch_ensembl_transcripts(
         "refseq_mrna_predicted",
         "refseq_ncrna",
         "transcript_length",
-
     ]
     if build == Build.build_38:
         attributes += ["transcript_mane_select", "transcript_mane_plus_clinical"]
