@@ -1,5 +1,9 @@
 # Change Log
 
+# [1.13.1]
+### Fixed
+- Removed transcripts length from exported files - as it can have a negative impact on other software's updates
+
 # [1.13]
 ### Added
 - MIT License file
