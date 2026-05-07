@@ -2,7 +2,7 @@
 
 Schug :stew: is a service that gather data about genes, transcripts and exons from multiple sources and merge the
 information. [Clinical Genomics Stockholm][cg] is currently maintaining an instance of Schug which can be used for downloading data.
-Here is a [REST API][rest-api] with relevant endpoints.
+Here is the [REST API][rest-api] with relevant endpoints.
 
 ## Test the app using Docker
 
