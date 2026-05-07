@@ -45,7 +45,9 @@ class EnsemblXML:
         }
 
     @staticmethod
-    def create_biomart_xml(filters: dict, attributes: List[str], header: Optional[bool]) -> str:
+    def create_biomart_xml(
+        filters: dict, attributes: List[str], header: Optional[bool]
+    ) -> str:
         """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
@@ -74,7 +76,9 @@ class EnsemblXML:
             value = filters[filter_name]
             if not isinstance(value, str):
                 value = ",".join(value)
-            formatted_lines.append(f'<Filter name = "{filter_name}" value = "{value}"/>')
+            formatted_lines.append(
+                f'<Filter name = "{filter_name}" value = "{value}"/>'
+            )
 
         return formatted_lines
 

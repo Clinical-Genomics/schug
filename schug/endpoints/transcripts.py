@@ -60,7 +60,9 @@ async def ensembl_transcripts(
                 chromosomes=[chrom],
             )
 
-            async for chunk in client.stream_chromosome(chrom=chrom, max_retries=max_retries):
+            async for chunk in client.stream_chromosome(
+                chrom=chrom, max_retries=max_retries
+            ):
                 yield chunk
 
     return StreamingResponse(
