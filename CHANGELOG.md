@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Fixed
+- Add retry + HTML error detection for Ensembl Biomart streaming failures (#122)
+
 # [1.13.1]
 ### Fixed
 - Removed transcripts length from exported files - as it can have a negative impact on other software's updates

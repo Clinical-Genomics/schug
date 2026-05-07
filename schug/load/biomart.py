@@ -1,11 +1,21 @@
+import asyncio
 import logging
+import random
+import urllib
 from typing import Dict, List, Optional
+from urllib.error import URLError
 
 import requests
 
 LOG = logging.getLogger(__name__)
 BIOMART_37_URL = "https://grch37.ensembl.org/biomart/martservice/?query="
 BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice/?query="
+
+
+class EnsemblOutageError(Exception):
+    """Raised when Ensembl returns an HTML outage page instead of data."""
+
+    pass
 
 
 class EnsemblXML:
@@ -122,3 +132,51 @@ class EnsemblBiomartClient:
     def build_url(self, xml: str):
         """Build a query url"""
         return "".join([self.server, xml])
+
+    async def stream_chromosome(self, chrom: str, max_retries: int):
+        """Stream content of response by chromosome, taking care of eventual server errors."""
+
+        url = self.build_url(xml=self.xml)
+
+        encoded_url = urllib.parse.quote(
+            url,
+            safe=":/?=&",
+        )
+
+        delay = 1
+
+        for attempt in range(1, max_retries + 1):
+            try:
+                print(f"[{chrom}] Attempt {attempt}")
+
+                with urllib.request.urlopen(
+                    encoded_url,
+                    timeout=60,
+                ) as response:
+
+                    # Detect Ensembl outage HTML pages
+                    first_chunk = response.read(1000)
+
+                    if b"<html" in first_chunk.lower():
+                        raise EnsemblOutageError("Ensembl returned outage page")
+
+                    # Yield first chunk
+                    yield first_chunk
+
+                    # Stream remaining data
+                    for line in response:
+                        yield line
+
+                    # Success → stop retrying
+                    return
+
+            except (URLError, EnsemblOutageError) as e:
+                print(f"[{chrom}] Error: {e}")
+
+                if attempt == max_retries:
+                    print(f"[{chrom}] Failed after {max_retries} attempts")
+                    return
+
+                await asyncio.sleep(delay + random.uniform(0, 0.5))
+
+                delay *= 2

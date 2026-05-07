@@ -1,19 +1,12 @@
-import urllib.request
-from typing import List
-
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
-from sqlmodel import Session, select
 
-from schug.database.session import get_session
-from schug.load.biomart import EnsemblBiomartClient
 from schug.load.ensembl import CHROMOSOMES, fetch_ensembl_transcripts
-from schug.load.fetch_resource import stream_resource
-from schug.models import Transcript, TranscriptRead
 from schug.models.common import Build
-from schug.models.transcript import TranscriptReadWithExons
 
 router = APIRouter()
+
+
 """
 
 @router.get("/", response_model=List[TranscriptRead])
@@ -43,20 +36,30 @@ def read_transcript_db_id(
 
 
 @router.get("/ensembl_transcripts/", response_class=StreamingResponse)
-async def ensembl_transcripts(build: Build, max_retries: int = 5):
-    """A proxy to the Ensembl Biomart that retrieves transcripts in a specific genome build."""
+async def ensembl_transcripts(
+    build: Build,
+    max_retries: int = 15,
+):
+    """
+    Proxy to Ensembl Biomart that streams transcripts
+    chromosome-by-chromosome with retry support.
+    """
 
     async def chromosome_stream():
         for chrom in CHROMOSOMES:
-            print(f"Retrieving transcripts from chromosome: {chrom}")
-            ensembl_client: EnsemblBiomartClient = fetch_ensembl_transcripts(
-                build=build, chromosomes=[chrom]
-            )
-            url: str = ensembl_client.build_url(xml=ensembl_client.xml)
-            encoded_url = urllib.parse.quote(url, safe=":/?=&")
-            with urllib.request.urlopen(encoded_url) as response:
-                for line in response:
-                    yield line
+            print(f"Retrieving chromosome {chrom}")
 
-    # Return the StreamingResponse with the asynchronous generator
-    return StreamingResponse(chromosome_stream(), media_type="text/tsv")
+            client: EnsemblBiomartClient = fetch_ensembl_transcripts(
+                build=build,
+                chromosomes=[chrom],
+            )
+
+            async for chunk in client.stream_chromosome(
+                chrom=chrom, max_retries=max_retries
+            ):
+                yield chunk
+
+    return StreamingResponse(
+        chromosome_stream(),
+        media_type="text/tsv",
+    )
