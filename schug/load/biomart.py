@@ -1,5 +1,9 @@
+import asyncio
 import logging
+import random
+import urllib
 from typing import Dict, List, Optional
+from urllib.error import HTTPError, URLError
 
 import requests
 
@@ -41,9 +45,7 @@ class EnsemblXML:
         }
 
     @staticmethod
-    def create_biomart_xml(
-        filters: dict, attributes: List[str], header: Optional[bool]
-    ) -> str:
+    def create_biomart_xml(filters: dict, attributes: List[str], header: Optional[bool]) -> str:
         """Convert Ensembl Biomart query parameters into a XML format Ensembl Biomart query."""
         filter_lines: List[str] = EnsemblXML.xml_filters(filters)
         attribute_lines = EnsemblXML.xml_attributes(attributes)
@@ -72,9 +74,7 @@ class EnsemblXML:
             value = filters[filter_name]
             if not isinstance(value, str):
                 value = ",".join(value)
-            formatted_lines.append(
-                f'<Filter name = "{filter_name}" value = "{value}"/>'
-            )
+            formatted_lines.append(f'<Filter name = "{filter_name}" value = "{value}"/>')
 
         return formatted_lines
 
@@ -122,3 +122,51 @@ class EnsemblBiomartClient:
     def build_url(self, xml: str):
         """Build a query url"""
         return "".join([self.server, xml])
+
+    async def stream_chromosome(self, chrom: str, max_retries: int):
+        """Stream content of response by chromosome, taking care of eventual server errors."""
+
+        url = self.build_url(xml=self.xml)
+
+        encoded_url = urllib.parse.quote(
+            url,
+            safe=":/?=&",
+        )
+
+        delay = 1
+
+        for attempt in range(1, max_retries + 1):
+            try:
+                print(f"[{chrom}] Attempt {attempt}")
+
+                with urllib.request.urlopen(
+                    encoded_url,
+                    timeout=60,
+                ) as response:
+
+                    # Detect Ensembl outage HTML pages
+                    first_chunk = response.read(1000)
+
+                    if b"<html" in first_chunk.lower():
+                        raise Exception("Ensembl returned outage page")
+
+                    # Yield first chunk
+                    yield first_chunk
+
+                    # Stream remaining data
+                    for line in response:
+                        yield line
+
+                    # Success → stop retrying
+                    return
+
+            except (HTTPError, URLError, Exception) as e:
+                print(f"[{chrom}] Error: {e}")
+
+                if attempt == max_retries:
+                    print(f"[{chrom}] Failed after " f"{max_retries} attempts")
+                    return
+
+                await asyncio.sleep(delay + random.uniform(0, 0.5))
+
+                delay *= 2
