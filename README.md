@@ -1,7 +1,8 @@
 # Schug
 
 Schug :stew: is a service that gather data about genes, transcripts and exons from multiple sources and merge the
-information. There is a [REST API][rest-api] with relevant endpoints.
+information. [Clinical Genomics Stockholm][cg] is currently maintaining an instance of Schug which can be used for downloading data.
+Here is the [REST API][rest-api] with relevant endpoints.
 
 ## Test the app using Docker
 
@@ -10,12 +11,12 @@ You can test Schug on your local computer using Docker. Make sure you have [Dock
 ```
 git clone https://github.com/Clinical-Genomics/schug
 cd schug
-docker-compose up
+docker compose up
 ```
 
 Then the app endpoints should be listed available at the following address http://localhost:8000/docs
 
-The command to stop the demo is `docker-compose down`.
+The command to stop the demo is `docker compose down`.
 
 
 ## Installation (development)
@@ -38,19 +39,19 @@ Once having set up an instance of Schug, you can use the following endpoints:
 
    Downloads genes from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/genes/ensembl_genes/?build=38' > genes_GRCh38.txt`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/genes/ensembl_genes/?build=38' > ensembl_genes_38.txt`
 
  - **/transcripts/ensembl_transcripts/**
 
    Downloads gene transcripts from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/transcripts/ensembl_transcripts/?build=38' > transcripts_GRCh38.txt`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/transcripts/ensembl_transcripts/?build=38' > ensembl_transcripts_38.txt`
 
  - **/exons/ensembl_exons/**
 
    Downloads gene exons from Ensembl in text format. Specify a genome build by using the parameters `37` or `38`.
 
-   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38' > exons_GRCh38.txt`
+   Usage: `curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=38' > ensembl_exons_38.txt`
 
 ## Issues While Downloading Genes, Transcripts, or Exons
 
@@ -65,7 +66,7 @@ This error often occurs when the external service prematurely closes the connect
 Here’s an example of how to modify the request:
 
 ```
-curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=37&max_retries=10' > exons_GRCh37.txt`
+curl -X 'GET' 'http://0.0.0.0:8000/exons/ensembl_exons/?build=37&max_retries=10' > ensembl_exons_37.txt`
 ```
 
 ## What is left to do?
@@ -76,7 +77,8 @@ Some of the basic endpoints are in place but these need to be extended according
 users. Also the gene information needs to be completed, this will be done in a similar fashion as in
 [Scout][scout-genes].
 
+[cg]: https://www.scilifelab.se/units/clinical-genomics-stockholm/
 [docker]: https://www.docker.com/
 [poetry]: https://python-poetry.org/docs/basic-usage/
-[rest-api]: https://realpython.com/api-integration-in-python/
+[rest-api]: https://schug.scilifelab.se/docs
 [scout-genes]: https://github.com/Clinical-Genomics/scout/blob/121e9577aaf837eadd6b0e231e0fc5f3e187b920/scout/load/setup.py#L41

@@ -1,6 +1,8 @@
 # Change Log
 
 # [unreleased]
+### Changed
+- Renamed the example outfiles on README as the files used in the Scout software (#123)
 ### Fixed
 - Add retry + HTML error detection for Ensembl Biomart streaming failures (#122)
 
