@@ -12,6 +12,12 @@ BIOMART_37_URL = "https://grch37.ensembl.org/biomart/martservice/?query="
 BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice/?query="
 
 
+class EnsemblOutageError(Exception):
+    """Raised when Ensembl returns an HTML outage page instead of data."""
+
+    pass
+
+
 class EnsemblXML:
     """Class with functions to create xml query files for ensembl biomart
 
@@ -152,7 +158,7 @@ class EnsemblBiomartClient:
                     first_chunk = response.read(1000)
 
                     if b"<html" in first_chunk.lower():
-                        raise Exception("Ensembl returned outage page")
+                        raise EnsemblOutageError("Ensembl returned outage page")
 
                     # Yield first chunk
                     yield first_chunk
@@ -164,7 +170,7 @@ class EnsemblBiomartClient:
                     # Success → stop retrying
                     return
 
-            except (HTTPError, URLError, Exception) as e:
+            except (HTTPError, URLError, EnsemblOutageError) as e:
                 print(f"[{chrom}] Error: {e}")
 
                 if attempt == max_retries:
