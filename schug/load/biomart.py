@@ -3,7 +3,7 @@ import logging
 import random
 import urllib
 from typing import Dict, List, Optional
-from urllib.error import HTTPError, URLError
+from urllib.error import URLError
 
 import requests
 
@@ -170,11 +170,11 @@ class EnsemblBiomartClient:
                     # Success → stop retrying
                     return
 
-            except (HTTPError, URLError, EnsemblOutageError) as e:
+            except (URLError, EnsemblOutageError) as e:
                 print(f"[{chrom}] Error: {e}")
 
                 if attempt == max_retries:
-                    print(f"[{chrom}] Failed after " f"{max_retries} attempts")
+                    print(f"[{chrom}] Failed after {max_retries} attempts")
                     return
 
                 await asyncio.sleep(delay + random.uniform(0, 0.5))
