@@ -1,18 +1,12 @@
-from typing import List
-
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
-from sqlmodel import Session, select
 
-from schug.database.session import get_session
-from schug.load.biomart import EnsemblBiomartClient
 from schug.load.ensembl import CHROMOSOMES, fetch_ensembl_transcripts
-from schug.load.fetch_resource import stream_resource
-from schug.models import Transcript, TranscriptRead
 from schug.models.common import Build
-from schug.models.transcript import TranscriptReadWithExons
 
 router = APIRouter()
+
+
 """
 
 @router.get("/", response_model=List[TranscriptRead])

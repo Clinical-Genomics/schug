@@ -1,12 +1,7 @@
-import io
-from typing import Callable, Type
-
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
-from pytest_mock.plugin import MockerFixture
 
-from schug.demo import EXONS_37_FILE_PATH, EXONS_38_FILE_PATH
 from schug.models.common import Build
 
 genome_builds = [Build.build_37, Build.build_38]
@@ -14,38 +9,46 @@ genome_builds = [Build.build_37, Build.build_38]
 
 @pytest.mark.parametrize("build", genome_builds)
 def test_ensembl_genes(
-    build: str,
+    build,
     client: TestClient,
-    endpoints: Type,
-    mocker: MockerFixture,
-    file_handler: Callable,
+    endpoints,
+    mocker,
 ):
-    """Test downloading the genes file in both builds using the Ensembl Biomart."""
+    """
+    Test Ensembl genes streaming endpoint (simplified + stable).
+    """
 
-    # GIVEN a patched response from Ensembl Biomart
-    mock_ensembl_client = mocker.MagicMock()
-    mock_ensembl_client.build_url.return_value = "https://mocked_url"
+    # -------------------------
+    # GIVEN: mocked chromosome stream
+    # -------------------------
+    async def fake_stream_chromosome(*args, **kwargs):
+        yield b"mocked gene line 1\n"
+        yield b"mocked gene line 2\n"
+        yield b"[success]\n"
+
+    mock_client_instance = mocker.MagicMock()
+
+    mock_client_instance.stream_chromosome = fake_stream_chromosome
 
     mocker.patch(
-        "schug.endpoints.genes.fetch_ensembl_genes", return_value=mock_ensembl_client
+        "schug.endpoints.genes.fetch_ensembl_genes",
+        return_value=mock_client_instance,
     )
 
-    # Properly mock urlopen
-    mock_urlopen = mocker.patch("urllib.request.urlopen")
-    mock_urlopen.return_value.__enter__.return_value = io.BytesIO(
-        b"mocked gene line 1\nmocked gene line 2\n[success]\n"
-    )
-
-    # WHEN sending a request to Biomart to retrieve genes in the given build
+    # -------------------------
+    # WHEN: calling endpoint
+    # -------------------------
     with client.stream(
         "GET", f"{endpoints.ENSEMBL_GENES.value}?build={build}"
     ) as response:
+
+        # -------------------------
+        # THEN: response is OK
+        # -------------------------
         assert response.status_code == status.HTTP_200_OK
 
-        # THEN response should contain lines
-        lines = [
-            line.strip() for line in response.iter_lines()
-        ]  # Strip newline characters
+        lines = [line.strip() for line in response.iter_lines() if line]
+
         assert len(lines) > 0
         assert "mocked gene line 1" in lines
         assert "mocked gene line 2" in lines
