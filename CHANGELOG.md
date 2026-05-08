@@ -1,6 +1,6 @@
 # Change Log
 
-# [unreleased]
+# [1.14]
 ### Changed
 - Renamed the example outfiles on README as the files used in the Scout software (#123)
 - Update versions of several GitHub actions used in workflows (#124)
