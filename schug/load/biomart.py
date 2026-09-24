@@ -151,8 +151,8 @@ class EnsemblBiomartClient:
                 print(f"[{chrom}] Attempt {attempt}")
 
                 with urllib.request.urlopen(
-                        encoded_url,
-                        timeout=60,
+                    encoded_url,
+                    timeout=60,
                 ) as response:
 
                     # Detect Ensembl outage HTML pages
