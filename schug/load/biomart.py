@@ -4,12 +4,13 @@ import random
 import urllib
 from typing import Dict, List, Optional
 from urllib.error import URLError
+import socket
 
 import requests
 
 LOG = logging.getLogger(__name__)
 BIOMART_37_URL = "https://grch37.ensembl.org/biomart/martservice/?query="
-BIOMART_38_URL = "https://www.ensembl.org/biomart/martservice/?query="
+BIOMART_38_URL = "https://jun2026.archive.ensembl.org/biomart/martservice/?query="
 
 
 class EnsemblOutageError(Exception):
@@ -143,7 +144,7 @@ class EnsemblBiomartClient:
             safe=":/?=&",
         )
 
-        delay = 1
+        delay = 5
 
         for attempt in range(1, max_retries + 1):
             try:
@@ -170,7 +171,7 @@ class EnsemblBiomartClient:
                     # Success → stop retrying
                     return
 
-            except (URLError, EnsemblOutageError) as e:
+            except (URLError, socket.timeout, EnsemblOutageError) as e:
                 print(f"[{chrom}] Error: {e}")
 
                 if attempt == max_retries:

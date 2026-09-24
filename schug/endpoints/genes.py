@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
-from schug.load.ensembl import CHROMOSOMES, fetch_ensembl_genes
+from schug.load.ensembl import CHROMOSOMES, fetch_ensembl_genes, EnsemblBiomartClient
 from schug.models.common import Build
 
 router = APIRouter()

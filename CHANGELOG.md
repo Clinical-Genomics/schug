@@ -1,5 +1,9 @@
 # Change Log
 
+# [unreleased]
+### Fixed
+- Modified the Ensembl Biomart URL to `https://jun2026.archive.ensembl.org/biomart/martservice/` (#129)
+
 # [1.14]
 ### Changed
 - Renamed the example outfiles on README as the files used in the Scout software (#123)
