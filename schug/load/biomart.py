@@ -4,6 +4,7 @@ import random
 import urllib
 from typing import Dict, List, Optional
 from urllib.error import URLError
+import socket
 
 import requests
 
@@ -143,15 +144,15 @@ class EnsemblBiomartClient:
             safe=":/?=&",
         )
 
-        delay = 1
+        delay = 5
 
         for attempt in range(1, max_retries + 1):
             try:
                 print(f"[{chrom}] Attempt {attempt}")
 
                 with urllib.request.urlopen(
-                    encoded_url,
-                    timeout=60,
+                        encoded_url,
+                        timeout=60,
                 ) as response:
 
                     # Detect Ensembl outage HTML pages
@@ -170,7 +171,7 @@ class EnsemblBiomartClient:
                     # Success → stop retrying
                     return
 
-            except (URLError, EnsemblOutageError) as e:
+            except (URLError, socket.timeout, EnsemblOutageError) as e:
                 print(f"[{chrom}] Error: {e}")
 
                 if attempt == max_retries:
