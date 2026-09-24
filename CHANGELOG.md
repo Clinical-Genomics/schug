@@ -1,8 +1,8 @@
 # Change Log
 
-# [unreleased]
+# [1.14.1]
 ### Fixed
-- Modified the Ensembl Biomart URL to `https://jun2026.archive.ensembl.org/biomart/martservice/` (#129)
+- Modified the Ensembl Biomart build 38 URL to `https://jun2026.archive.ensembl.org/biomart/martservice/` (#129)
 
 # [1.14]
 ### Changed
